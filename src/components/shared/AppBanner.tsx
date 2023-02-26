@@ -1,20 +1,20 @@
-import { FC } from "react";
-import MaxWidthContainer from "./MaxWidthContainer";
+import { FC } from 'react';
+import MaxWidthContainer from './MaxWidthContainer';
 
 type Props = {
-  darkBg?: boolean;
-}
+	darkBg?: boolean;
+};
 
-const AppBanner:FC<Props> = ({ darkBg }) => {
-  const bg = darkBg ? 'bg-blue-500' : 'white';
+const AppBanner: FC<Props> = ({ darkBg }) => {
+	const bg = darkBg ? 'bg-blue-500' : 'white';
 
-  return (
-    <div className={`py-1 ${bg}`}>
-      <MaxWidthContainer darkBg={false}>
-        Nodes is a work in progress assignment for Cake DeFi
-      </MaxWidthContainer>
-    </div>
-  )
-}
+	return (
+		<div className={`py-1 ${bg}`}>
+			<MaxWidthContainer darkBg={false}>
+				Nodes is a work in progress assignment for Cake DeFi
+			</MaxWidthContainer>
+		</div>
+	);
+};
 
 export default AppBanner;

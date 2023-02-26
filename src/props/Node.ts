@@ -5,11 +5,11 @@ export interface Node {
 	status: string;
 	type: string;
 	lastReward: {
-    createdAt: string;
-    amount: {
-      coin: string;
-      kind: string;
-      amount: string;
-    };
-  };
+		createdAt: string;
+		amount: {
+			coin: string;
+			kind: string;
+			amount: string;
+		};
+	};
 }

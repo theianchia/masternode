@@ -6,12 +6,14 @@ type Props = {
 };
 
 const AppBanner: FC<Props> = ({ darkBg }) => {
-	const bg = darkBg ? 'bg-blue-500' : 'white';
+	const bg = darkBg
+		? 'bg-primary-700 text-neutral-100'
+		: 'bg-neutral-100 text-primary-700';
 
 	return (
 		<div className={`py-1 ${bg}`}>
-			<MaxWidthContainer darkBg={false}>
-				Nodes is a work in progress assignment for Cake DeFi
+			<MaxWidthContainer darkBg={darkBg}>
+				MasterNodes is a work in progress assignment for Cake DeFi
 			</MaxWidthContainer>
 		</div>
 	);

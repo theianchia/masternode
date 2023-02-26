@@ -8,7 +8,9 @@ const MaxWidthContainer: FC<PropsWithChildren<Props>> = ({
 	children,
 	darkBg,
 }) => {
-	const bg = darkBg ? 'bg-blue-500' : 'white';
+	const bg = darkBg
+		? 'bg-primary-700 text-neutral-100'
+		: 'bg-neutral-100 text-primary-700';
 
 	return (
 		<div className="w-full">

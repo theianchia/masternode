@@ -67,7 +67,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 const HOME_PAGE_SECTIONS = [
 	{
 		darkBg: false,
-		heading: 'Cake Nodes',
+		heading: 'MasterNodes',
 		subheading: 'Earn passive income by staking your crypto assets',
 		type: 'block',
 	},
@@ -106,18 +106,20 @@ const Home: NextPage<Props> = ({
 			</Head>
 			<main className="min-h-screen flex flex-col">
 				<AppBanner darkBg={true} />
-				<MaxWidthContainer darkBg={false}>
-					<div className="grid grid-cols-2 gap-5">
-						{HOME_PAGE_SECTIONS.map(section => (
-							<HomePageSection
-								key={section.heading}
-								nodeAmount={nodesAmount.get(section.heading)}
-								nodeCurrency={nodesCurrency.get(section.heading)}
-								{...section}
-							/>
-						))}
-					</div>
-				</MaxWidthContainer>
+				<div className="flex-grow">
+					<MaxWidthContainer darkBg={false}>
+						<div className="grid grid-cols-2 gap-5">
+							{HOME_PAGE_SECTIONS.map(section => (
+								<HomePageSection
+									key={section.heading}
+									nodeAmount={nodesAmount.get(section.heading)}
+									nodeCurrency={nodesCurrency.get(section.heading)}
+									{...section}
+								/>
+							))}
+						</div>
+					</MaxWidthContainer>
+				</div>
 				<AppFooter />
 			</main>
 		</>

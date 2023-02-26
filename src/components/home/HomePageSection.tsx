@@ -18,7 +18,9 @@ const HomePageSection: FC<Props> = ({
 	subheading,
 	type,
 }) => {
-	const bg = darkBg ? 'bg-blue-500' : 'white';
+	const bg = darkBg
+		? 'bg-primary-700 text-neutral-100'
+		: 'bg-neutral-100 text-primary-700';
 
 	const renderSection = (type: string) => {
 		switch (type) {

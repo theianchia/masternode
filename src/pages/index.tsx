@@ -6,11 +6,11 @@ import { Node } from '@/props/Node';
 import Head from 'next/head';
 import { GetStaticProps, NextPage } from 'next';
 import axios from 'axios';
+import NodeCardSection from '@/components/home/NodeCardSection';
 
 type Props = {
-	nodesToday: Node[];
-	serializedNodesAmount: string;
-	serializedNodesCurrency: string;
+	nodes: Node[];
+	serializedNodesValue: string;
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
@@ -22,47 +22,47 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 	const nodesData = nodesResponse.data;
 	const cryptocurrenciesData = cryptocurrenciesResponse.data;
 
-	const currentDate = new Date();
-
-	const nodesToday: Node[] = [];
-	const nodesAmount = new Map<string, number>();
-	const nodesCurrency = new Map<string, string>();
+	const nodes = [];
+	const nodesValue = new Map<string, number>();
 
 	for (const node of nodesData) {
-		const createdDate = new Date(node.lastReward.createdAt);
-		if (currentDate.toDateString() === createdDate.toDateString()) {
-			nodesToday.push(node);
+		if (node.status !== 'ACTIVE') {
+			continue;
+		}
 
-			if (nodesAmount.has(node.coin)) {
-				const currAmount = nodesAmount.get(node.coin);
-				if (typeof currAmount === 'number') {
-					nodesAmount.set(
-						node.coin,
-						currAmount + parseFloat(node.lastReward.amount.amount)
-					);
+		if (nodesValue.has(node.coin)) {
+			for (const cryptocurrency of cryptocurrenciesData.data) {
+				if (node.lastReward.amount.coin === cryptocurrency.symbol) {
+					const currValue = nodesValue.get(node.coin);
+					if (typeof currValue === 'number') {
+						nodesValue.set(
+							node.coin,
+							currValue + (cryptocurrency.quote.USD.price * parseFloat(node.lastReward.amount.amount))
+						);
+					}
+					
 				}
-			} else {
-				nodesAmount.set(node.coin, parseFloat(node.lastReward.amount.amount));
 			}
 
-			nodesCurrency.set(node.coin, node.lastReward.amount.coin);
 		} else {
-			break;
+			nodes.push(node);
+			nodesValue.set(node.coin, 0);
+			for (const cryptocurrency of cryptocurrenciesData.data) {
+				if (node.lastReward.amount.coin === cryptocurrency.symbol) {
+					nodesValue.set(node.coin, cryptocurrency.quote.USD.price * parseFloat(node.lastReward.amount.amount));
+				}
+			}
 		}
 	}
 
-	const serializedNodesAmount = JSON.stringify(
-		Array.from(nodesAmount.entries())
-	);
-	const serializedNodesCurrency = JSON.stringify(
-		Array.from(nodesCurrency.entries())
+	const serializedNodesValue = JSON.stringify(
+		Array.from(nodesValue.entries())
 	);
 
 	return {
 		props: {
-			nodesToday,
-			serializedNodesAmount,
-			serializedNodesCurrency,
+			nodes,
+			serializedNodesValue,
 		},
 		revalidate: 60,
 	};
@@ -81,29 +81,14 @@ const HOME_PAGE_SECTIONS = [
 		subheading: 'Earn passive income by staking your crypto assets',
 		type: 'block',
 	},
-	{
-		darkBg: false,
-		heading: 'Ether',
-		subheading: 'Earn passive income by staking your crypto assets',
-		type: 'card',
-	},
-	{
-		darkBg: false,
-		heading: 'DeFi',
-		subheading: 'Earn passive income by staking your crypto assets',
-		type: 'card',
-	},
 ];
 
 const Home: NextPage<Props> = ({
-	serializedNodesAmount,
-	serializedNodesCurrency,
+	nodes,
+	serializedNodesValue
 }) => {
-	const nodesAmount: Map<string, number> = new Map(
-		JSON.parse(serializedNodesAmount)
-	);
-	const nodesCurrency: Map<string, string> = new Map(
-		JSON.parse(serializedNodesCurrency)
+	const nodesValue: Map<string, number> = new Map(
+		JSON.parse(serializedNodesValue)
 	);
 
 	return (
@@ -122,9 +107,16 @@ const Home: NextPage<Props> = ({
 							{HOME_PAGE_SECTIONS.map(section => (
 								<HomePageSection
 									key={section.heading}
-									nodeAmount={nodesAmount.get(section.heading)}
-									nodeCurrency={nodesCurrency.get(section.heading)}
 									{...section}
+								/>
+							))}
+						</div>
+						<div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+							{nodes.map(node => (
+								<NodeCardSection
+									key={node.coin}
+									node={node}
+									nodesValue={nodesValue}
 								/>
 							))}
 						</div>

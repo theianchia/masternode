@@ -5,6 +5,7 @@ import AppFooter from '@/components/shared/AppFooter';
 import { Node } from '@/props/Node';
 import Head from 'next/head';
 import { GetStaticProps, NextPage } from 'next';
+import axios from 'axios';
 
 type Props = {
 	nodesToday: Node[];
@@ -13,10 +14,13 @@ type Props = {
 };
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
-	const res = await fetch(
-		'https://api.cakedefi.com/nodes?order=status&orderBy=DESC'
-	);
-	const nodes: Node[] = await res.json();
+	const [nodesResponse, cryptocurrenciesResponse] = await Promise.all([
+		axios.get(`${process.env.API_BASE_URL}/node`),
+		axios.get(`${process.env.API_BASE_URL}/cryptocurrency`),
+	]);
+
+	const nodesData = nodesResponse.data;
+	const cryptocurrenciesData = cryptocurrenciesResponse.data;
 
 	const currentDate = new Date();
 
@@ -24,7 +28,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 	const nodesAmount = new Map<string, number>();
 	const nodesCurrency = new Map<string, string>();
 
-	for (const node of nodes) {
+	for (const node of nodesData) {
 		const createdDate = new Date(node.lastReward.createdAt);
 		if (currentDate.toDateString() === createdDate.toDateString()) {
 			nodesToday.push(node);
@@ -73,6 +77,12 @@ const HOME_PAGE_SECTIONS = [
 	},
 	{
 		darkBg: false,
+		heading: 'Staking',
+		subheading: 'Earn passive income by staking your crypto assets',
+		type: 'block',
+	},
+	{
+		darkBg: false,
 		heading: 'Ether',
 		subheading: 'Earn passive income by staking your crypto assets',
 		type: 'card',
@@ -108,7 +118,7 @@ const Home: NextPage<Props> = ({
 				<AppBanner darkBg={true} />
 				<div className="flex-grow">
 					<MaxWidthContainer darkBg={false}>
-						<div className="grid grid-cols-2 gap-5">
+						<div className="grid grid-cols-1 md:grid-cols-2 gap-5">
 							{HOME_PAGE_SECTIONS.map(section => (
 								<HomePageSection
 									key={section.heading}

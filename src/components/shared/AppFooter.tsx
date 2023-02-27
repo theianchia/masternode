@@ -3,7 +3,7 @@ import MaxWidthContainer from './MaxWidthContainer';
 
 const AppFooter = () => {
 	return (
-		<Footer container={true} className="bg-transparent">
+		<Footer container={true} className="bg-neutral-100">
 			<MaxWidthContainer darkBg={false}>
 				<div className="w-full text-center">
 					<div className="w-full justify-between sm:flex sm:items-center sm:justify-between">

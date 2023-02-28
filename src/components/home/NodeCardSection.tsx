@@ -14,13 +14,17 @@ const NodeCardSection: FC<Props> = ({ node, nodeValue, coin }) => {
 		<div>
 			<Card href="#">
 				<div className="flex items-center">
-          <img className="w-8 h-8 mr-3" src={coin.image.large} alt="Coin Logo" />
+					<img
+						className="w-8 h-8 mr-3"
+						src={coin.image.large}
+						alt="Coin Logo"
+					/>
 					<h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
 						{node.coin}
 					</h5>
 				</div>
 				<p className="font-normal text-gray-700 dark:text-gray-400">
-					{nodeValue * coin.market_data.current_price.usd} USD
+					${nodeValue * coin.market_data.current_price.usd} USD
 				</p>
 			</Card>
 		</div>

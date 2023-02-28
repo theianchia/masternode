@@ -3,7 +3,7 @@ import MaxWidthContainer from './MaxWidthContainer';
 
 const AppFooter = () => {
 	return (
-		<Footer container={true} className="bg-neutral-100">
+		<Footer container={true} className="border rounded-none bg-neutral">
 			<MaxWidthContainer darkBg={false}>
 				<div className="w-full text-center">
 					<div className="w-full justify-between sm:flex sm:items-center sm:justify-between">
@@ -15,9 +15,6 @@ const AppFooter = () => {
 						/>
 						<Footer.LinkGroup>
 							<Footer.Link href="#">About</Footer.Link>
-							<Footer.Link href="#">Privacy Policy</Footer.Link>
-							<Footer.Link href="#">Licensing</Footer.Link>
-							<Footer.Link href="#">Contact</Footer.Link>
 						</Footer.LinkGroup>
 					</div>
 					<Footer.Divider />

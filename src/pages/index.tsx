@@ -8,6 +8,7 @@ import Head from 'next/head';
 import { GetServerSideProps, NextPage } from 'next';
 import axios from 'axios';
 import NodeCardSection from '@/components/home/NodeCardSection';
+import Dropdown from '@/components/home/Dropdown';
 
 type Props = {
 	nodes: Node[];
@@ -15,7 +16,15 @@ type Props = {
 	serializedNodesCoin: string;
 };
 
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
+export const getServerSideProps: GetServerSideProps<Props> = async ({
+	req,
+	res,
+}) => {
+	res.setHeader(
+		'Cache-Control',
+		'public, s-maxage=300, stale-while-revalidate=350'
+	);
+
 	const [nodesResponse, allCoinsResponse] = await Promise.all([
 		axios.get(`${process.env.API_BASE_URL}/node`),
 		axios.get(`${process.env.API_BASE_URL}/allCoins`),
@@ -89,12 +98,6 @@ const HOME_PAGE_SECTIONS = [
 		subheading: 'Earn passive income by staking your crypto assets',
 		type: 'block',
 	},
-	{
-		darkBg: false,
-		heading: 'Staking',
-		subheading: 'Earn passive income by staking your crypto assets',
-		type: 'block',
-	},
 ];
 
 const Home: NextPage<Props> = ({
@@ -120,22 +123,30 @@ const Home: NextPage<Props> = ({
 				<AppBanner darkBg={true} />
 				<div className="flex-grow">
 					<MaxWidthContainer darkBg={false}>
-						<div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+						<div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
 							{HOME_PAGE_SECTIONS.map(section => (
 								<HomePageSection key={section.heading} {...section} />
 							))}
 						</div>
-						<div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+						<div className="flex flex-col md:flex-row md:items-center md:justify-between mb-5">
+							<HomePageSection
+								darkBg={false}
+								heading="Staking"
+								subheading="Earn passive income by staking your crypto assets"
+								type="smBlock"
+							/>
+							<Dropdown />
+						</div>
+
+						<div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
 							{nodes.map(node => {
 								let nodeValue;
 								let coin;
 
-								if (nodesValue.has(node.coin)) {
+								if (nodesValue.has(node.coin))
 									nodeValue = nodesValue.get(node.coin);
-								}
-								if (nodesCoin.has(node.coin)) {
-									coin = nodesCoin.get(node.coin);
-								}
+								if (nodesCoin.has(node.coin)) coin = nodesCoin.get(node.coin);
 
 								if (
 									typeof nodeValue === 'undefined' ||

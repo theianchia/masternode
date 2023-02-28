@@ -4,14 +4,15 @@ import LRUCache from 'lru-cache';
 
 const cache = new LRUCache<string, number>({
 	max: 100,
-	maxAge: 1000 * 60 * 10,
+	maxAge: 1000 * 60 * 60,
 });
 
 export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
-	const url = 'https://api.cakedefi.com/nodes?order=status&orderBy=DESC';
+	const url = 'https://api.coingecko.com/api/v3/coins/list';
+
 	const { method } = req;
 
 	try {

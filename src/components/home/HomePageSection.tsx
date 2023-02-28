@@ -7,12 +7,7 @@ type Props = {
 	type: string;
 };
 
-const HomePageSection: FC<Props> = ({
-	darkBg,
-	heading,
-	subheading,
-	type,
-}) => {
+const HomePageSection: FC<Props> = ({ darkBg, heading, subheading, type }) => {
 	const bg = darkBg
 		? 'bg-primary-700 text-neutral-100'
 		: 'bg-neutral-100 text-primary-700';

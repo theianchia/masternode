@@ -3,6 +3,7 @@ import MaxWidthContainer from '@/components/shared/MaxWidthContainer';
 import HomePageSection from '@/components/home/HomePageSection';
 import AppFooter from '@/components/shared/AppFooter';
 import { Node } from '@/props/Node';
+import { Coin } from '@/props/Coin';
 import Head from 'next/head';
 import { GetServerSideProps, NextPage } from 'next';
 import axios from 'axios';
@@ -11,19 +12,21 @@ import NodeCardSection from '@/components/home/NodeCardSection';
 type Props = {
 	nodes: Node[];
 	serializedNodesValue: string;
+	serializedNodesCoin: string;
 };
 
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
-	const [nodesResponse, cryptocurrenciesResponse] = await Promise.all([
+	const [nodesResponse, allCoinsResponse] = await Promise.all([
 		axios.get(`${process.env.API_BASE_URL}/node`),
-		axios.get(`${process.env.API_BASE_URL}/cryptocurrency`),
+		axios.get(`${process.env.API_BASE_URL}/allCoins`),
 	]);
 
 	const nodesData = nodesResponse.data;
-	const cryptocurrenciesData = cryptocurrenciesResponse.data;
+	const allCoinsData = allCoinsResponse.data;
 
 	const nodes = [];
 	const nodesValue = new Map<string, number>();
+	const nodesCoin = new Map<string, Coin>();
 
 	for (const node of nodesData) {
 		if (node.status !== 'ACTIVE') {
@@ -31,40 +34,51 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
 		}
 
 		if (nodesValue.has(node.coin)) {
-			for (const cryptocurrency of cryptocurrenciesData.data) {
-				if (node.lastReward.amount.coin === cryptocurrency.symbol) {
-					const currValue = nodesValue.get(node.coin);
-					if (typeof currValue === 'number') {
-						nodesValue.set(
-							node.coin,
-							currValue + (cryptocurrency.quote.USD.price * parseFloat(node.lastReward.amount.amount))
-						);
-					}
-					
-				}
+			const currValue = nodesValue.get(node.coin);
+			if (typeof currValue === 'number') {
+				nodesValue.set(
+					node.coin,
+					currValue + parseFloat(node.lastReward.amount.amount)
+				);
 			}
-
 		} else {
 			nodes.push(node);
 			nodesValue.set(node.coin, 0);
-			for (const cryptocurrency of cryptocurrenciesData.data) {
-				if (node.lastReward.amount.coin === cryptocurrency.symbol) {
-					nodesValue.set(node.coin, cryptocurrency.quote.USD.price * parseFloat(node.lastReward.amount.amount));
+			nodesValue.set(node.coin, parseFloat(node.lastReward.amount.amount));
+
+			let coinId = '';
+			for (const coinNaming of allCoinsData) {
+				if (
+					node.lastReward.amount.coin.toLowerCase() ===
+					coinNaming.symbol.toLowerCase()
+				) {
+					coinId = coinNaming.id;
+					break;
 				}
 			}
+
+			if (coinId === '') {
+				continue;
+			}
+
+			const coinResponse = await axios.get(
+				`${process.env.API_BASE_URL}/coin?id=${coinId}`
+			);
+			const coinData = coinResponse.data;
+			nodesCoin.set(node.coin, coinData);
 		}
 	}
 
-	const serializedNodesValue = JSON.stringify(
-		Array.from(nodesValue.entries())
-	);
+	const serializedNodesValue = JSON.stringify(Array.from(nodesValue.entries()));
+
+	const serializedNodesCoin = JSON.stringify(Array.from(nodesCoin.entries()));
 
 	return {
 		props: {
 			nodes,
 			serializedNodesValue,
+			serializedNodesCoin,
 		},
-		// revalidate: 60,
 	};
 };
 
@@ -85,11 +99,14 @@ const HOME_PAGE_SECTIONS = [
 
 const Home: NextPage<Props> = ({
 	nodes,
-	serializedNodesValue
+	serializedNodesValue,
+	serializedNodesCoin,
 }) => {
 	const nodesValue: Map<string, number> = new Map(
 		JSON.parse(serializedNodesValue)
 	);
+
+	const nodesCoin: Map<string, Coin> = new Map(JSON.parse(serializedNodesCoin));
 
 	return (
 		<>
@@ -105,20 +122,37 @@ const Home: NextPage<Props> = ({
 					<MaxWidthContainer darkBg={false}>
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-5">
 							{HOME_PAGE_SECTIONS.map(section => (
-								<HomePageSection
-									key={section.heading}
-									{...section}
-								/>
+								<HomePageSection key={section.heading} {...section} />
 							))}
 						</div>
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-							{nodes.map(node => (
-								<NodeCardSection
-									key={node.coin}
-									node={node}
-									nodesValue={nodesValue}
-								/>
-							))}
+							{nodes.map(node => {
+								let nodeValue;
+								let coin;
+
+								if (nodesValue.has(node.coin)) {
+									nodeValue = nodesValue.get(node.coin);
+								}
+								if (nodesCoin.has(node.coin)) {
+									coin = nodesCoin.get(node.coin);
+								}
+
+								if (
+									typeof nodeValue === 'undefined' ||
+									typeof coin === 'undefined'
+								) {
+									return null;
+								}
+
+								return (
+									<NodeCardSection
+										key={node.coin}
+										node={node}
+										nodeValue={nodeValue}
+										coin={coin}
+									/>
+								);
+							})}
 						</div>
 					</MaxWidthContainer>
 				</div>

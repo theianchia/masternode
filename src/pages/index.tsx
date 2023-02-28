@@ -4,7 +4,7 @@ import HomePageSection from '@/components/home/HomePageSection';
 import AppFooter from '@/components/shared/AppFooter';
 import { Node } from '@/props/Node';
 import Head from 'next/head';
-import { GetStaticProps, NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import axios from 'axios';
 import NodeCardSection from '@/components/home/NodeCardSection';
 
@@ -13,7 +13,7 @@ type Props = {
 	serializedNodesValue: string;
 };
 
-export const getStaticProps: GetStaticProps<Props> = async () => {
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
 	const [nodesResponse, cryptocurrenciesResponse] = await Promise.all([
 		axios.get(`${process.env.API_BASE_URL}/node`),
 		axios.get(`${process.env.API_BASE_URL}/cryptocurrency`),
@@ -64,7 +64,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 			nodes,
 			serializedNodesValue,
 		},
-		revalidate: 60,
+		// revalidate: 60,
 	};
 };
 

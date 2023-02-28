@@ -12,10 +12,14 @@ export default async function handler(
 			'X-CMC_PRO_API_KEY': process.env.COINMARKETCAP_API_KEY as string,
 		},
 	};
+	const { method } = req;
 
 	try {
-		const { data } = await axios.get(url, config);
-		res.status(200).json(data);
+		if ( method === 'GET' ) {
+      const { data } = await axios.get(url, config);
+      res.status(200).json(data);
+    }
+
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({ error: 'Internal server error' });

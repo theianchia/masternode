@@ -1,7 +1,6 @@
 import { Coin } from '@/props/Coin';
 import { Node } from '@/props/Node';
 import { Card } from 'flowbite-react';
-import Image from 'next/image';
 import { FC } from 'react';
 
 type Props = {
@@ -14,13 +13,8 @@ const NodeCardSection: FC<Props> = ({ node, nodeValue, coin }) => {
 	return (
 		<div>
 			<Card href="#">
-				<div className="flex">
-					{/* <Image
-						src={coin.image.large}
-						alt="Coin Logo"
-						width={24}
-						height={24}
-					/> */}
+				<div className="flex items-center">
+          <img className="w-8 h-8 mr-3" src={coin.image.large} alt="Coin Logo" />
 					<h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
 						{node.coin}
 					</h5>

@@ -16,15 +16,7 @@ type Props = {
 	serializedNodesCoin: string;
 };
 
-export const getServerSideProps: GetServerSideProps<Props> = async ({
-	req,
-	res,
-}) => {
-	res.setHeader(
-		'Cache-Control',
-		'public, s-maxage=300, stale-while-revalidate=350'
-	);
-
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
 	const [nodesResponse, allCoinsResponse] = await Promise.all([
 		axios.get(`${process.env.API_BASE_URL}/node`),
 		axios.get(`${process.env.API_BASE_URL}/allCoins`),
@@ -108,7 +100,6 @@ const Home: NextPage<Props> = ({
 	const nodesValue: Map<string, number> = new Map(
 		JSON.parse(serializedNodesValue)
 	);
-
 	const nodesCoin: Map<string, Coin> = new Map(JSON.parse(serializedNodesCoin));
 
 	return (

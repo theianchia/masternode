@@ -11,7 +11,7 @@ const AppBanner: FC<Props> = ({ darkBg }) => {
 		: 'bg-neutral-100 text-primary-700';
 
 	return (
-		<div className={`py-1 ${bg}`}>
+		<div className={`py-1 ${bg} mb-5`}>
 			<MaxWidthContainer darkBg={darkBg}>
 				<div className="flex">
 					<svg

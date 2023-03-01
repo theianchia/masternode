@@ -3,7 +3,7 @@ import { Node } from '@/props/Node';
 import { Card } from 'flowbite-react';
 import { FC, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import CoinGecko from 'public/coinGecko.png';
+import CoinGecko from 'public/coingecko.png';
 
 type Props = {
 	node: Node;

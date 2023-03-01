@@ -3,6 +3,7 @@ import { Node } from '@/props/Node';
 import { Card } from 'flowbite-react';
 import { FC, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import CoinGecko from 'public/coinGecko.png';
 
 type Props = {
 	node: Node;
@@ -52,9 +53,29 @@ const NodeCardSection: FC<Props> = ({ node, nodeValue, coin }) => {
 						{node.coin}
 					</h5>
 				</div>
+				<div>
+					<p className="font-normal text-gray-700 dark:text-gray-400">
+						Stake Reward: {parseFloat(node.lastReward.amount.amount)}{' '}
+						{node.lastReward.amount.coin}
+					</p>
+					<p className="font-normal text-gray-700 dark:text-gray-400">
+						$
+						{(parseFloat(node.lastReward.amount.amount) * currentPrice).toFixed(
+							2
+						)}{' '}
+						{currency || 'USD'}
+					</p>
+				</div>
 				<p className="font-normal text-gray-700 dark:text-gray-400">
-					${(nodeValue * currentPrice).toFixed(2)} {currency || 'USD'}
+					Total Assets: ${(nodeValue * currentPrice).toFixed(2)}{' '}
+					{currency || 'USD'}
 				</p>
+				<div className="flex items-center">
+					<img src={CoinGecko.src} alt="CoinGecko" className="w-6 h-6 mr-2" />
+					<p className="font-normal text-gray-700 dark:text-gray-400">
+						CoinGecko Rank: {coin.coingecko_rank}
+					</p>
+				</div>
 			</Card>
 		</div>
 	);

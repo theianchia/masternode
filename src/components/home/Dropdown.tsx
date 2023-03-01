@@ -1,13 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 const Dropdown = () => {
 	const CURRENCIES = ['USD', 'EUR', 'SGD', 'BTC'];
-	const [currency, setCurrency] = useState('USD');
+	const [currencyKey, setCurrencyKey] = useState('USD');
 	const router = useRouter();
+	const currency = router.query.currency as string;
+
+	useEffect(() => {
+		if (currency !== undefined && CURRENCIES.includes(currency)) {
+			setCurrencyKey(currency);
+		}
+	}, [router.query]);
 
 	const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-		setCurrency(e.target.value);
+		setCurrencyKey(e.target.value);
 		router.push(`?currency=${e.target.value}`);
 	};
 
@@ -19,7 +26,7 @@ const Dropdown = () => {
 			<select
 				id="currency"
 				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-700 block w-full p-2.5"
-				value={currency}
+				value={currencyKey}
 				onChange={handleChange}
 			>
 				{CURRENCIES.map(currency => {

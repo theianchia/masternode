@@ -5,7 +5,8 @@ import AppFooter from '@/components/shared/AppFooter';
 import { Node } from '@/props/Node';
 import { Coin } from '@/props/Coin';
 import Head from 'next/head';
-import { GetServerSideProps, NextPage } from 'next';
+import { GetServerSideProps, GetServerSidePropsContext, NextPage } from 'next';
+import LRUCache from 'lru-cache';
 import axios from 'axios';
 import NodeCardSection from '@/components/home/NodeCardSection';
 import Dropdown from '@/components/home/Dropdown';
@@ -16,7 +17,22 @@ type Props = {
 	serializedNodesCoin: string;
 };
 
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
+const cache = new LRUCache<string, Props>({
+	max: 100,
+	maxAge: 1000 * 60 * 60,
+});
+
+export const getServerSideProps: GetServerSideProps<Props> = async (
+	context: GetServerSidePropsContext
+) => {
+	const { query } = context;
+	const currency = query.currency as string;
+	const cacheKey = JSON.stringify(currency);
+	const cachedResponse = cache.get(cacheKey);
+	if (cachedResponse !== undefined) {
+		return { props: cachedResponse };
+	}
+
 	const [nodesResponse, allCoinsResponse] = await Promise.all([
 		axios.get(`${process.env.API_BASE_URL}/node`),
 		axios.get(`${process.env.API_BASE_URL}/allCoins`),
@@ -71,15 +87,17 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
 	}
 
 	const serializedNodesValue = JSON.stringify(Array.from(nodesValue.entries()));
-
 	const serializedNodesCoin = JSON.stringify(Array.from(nodesCoin.entries()));
+	const data: Props = {
+		nodes,
+		serializedNodesValue,
+		serializedNodesCoin,
+	};
+
+	cache.set(cacheKey, data);
 
 	return {
-		props: {
-			nodes,
-			serializedNodesValue,
-			serializedNodesCoin,
-		},
+		props: data,
 	};
 };
 

@@ -23,7 +23,7 @@ const NodeCardSection: FC<Props> = ({ node, nodeValue, coin }) => {
 	);
 
 	const router = useRouter();
-  const currency = router.query.currency as string;
+	const currency = router.query.currency as string;
 
 	useEffect(() => {
 		if (currency !== undefined && CURRENCIES_MAP.has(currency)) {

@@ -1,8 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
 import LRUCache from 'lru-cache';
+import { Coin } from '@/props/Coin';
 
-const cache = new LRUCache<string, number>({
+const cache = new LRUCache<string, Coin>({
 	max: 100,
 	maxAge: 1000 * 60 * 60, // 1 hour
 });

@@ -3,7 +3,7 @@ import CakeDefi from 'public/cakedefi.png';
 
 const AppFooter = () => {
 	return (
-		<footer className="p-4 bg-neutral-100 border">
+		<footer className="p-4 bg-neutral-100 border-top">
 			<MaxWidthContainer darkBg={false}>
 				<div className="sm:flex sm:items-center sm:justify-between">
 					<a href="https://cakedefi.com/" className="items-center mb-4 sm:mb-0">

@@ -25,6 +25,7 @@ export default async function handler(
 			}
 
 			const { data } = await axios.get(url);
+			cache.set(url, data);
 			res.status(200).json(data);
 		}
 	} catch (error) {

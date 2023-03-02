@@ -12,10 +12,10 @@ const TotalAssetsSection: FC<Props> = ({ nodesValue }) => {
 			</h5>
 			<div className="flex justify-around">
 				{Array.from(nodesValue).map(([key, value]) => (
-					<div key={key} className=" text-lg md:text-xl lg:text-2xl">
+					<div key={key} className="text-lg md:text-xl lg:text-2xl">
 						<p>{key}</p>
-						<hr className="h-0.5 border-0 bg-black my-2 md:my-3" />
-						<p className="font-bold">{value} </p>
+						<hr className="h-0.5 border-0 bg-black my-1 md:my-2 lg:my-3" />
+						<p className="font-bold text-sm md:text-md lg:text-xl">{value} </p>
 					</div>
 				))}
 			</div>

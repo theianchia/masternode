@@ -22,8 +22,8 @@ const CURRENCIES_MAP = new Map<string, string>([
 const NODECARDFIELDS = [
 	'Stake Reward',
 	'Last Stake Reward',
-	'Stake Reward Value',
-	'24 Hour Price Change',
+	'Reward Value',
+	'24H Price Change',
 	'Last Price Update',
 ];
 
@@ -87,7 +87,7 @@ const NodeCardSection: FC<Props> = ({ node, coin }) => {
 					</p>
 				</div>
 				<div className="flex items-center">
-					<div className="font-medium text-sm sm:text-base xl:text-lg mr-8 lg:mr-10">
+					<div className="font-medium text-sm sm:text-base xl:text-lg mr-5 md:mr-8 lg:mr-10">
 						{NODECARDFIELDS.map((field, index) => {
 							return (
 								<div key={index}>

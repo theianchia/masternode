@@ -12,58 +12,33 @@ export interface Coin {
 	coingecko_rank: number;
 	market_data: {
 		current_price: {
-			btc: number;
-			eur: number;
-			sgd: number;
-			usd: number;
+			[key: string]: number;
 		};
 		ath: {
-			btc: number;
-			eur: number;
-			sgd: number;
-			usd: number;
+			[key: string]: number;
 		};
 		ath_change_percentage: {
-			btc: number;
-			eur: number;
-			sgd: number;
-			usd: number;
+			[key: string]: number;
 		};
 		high_24h: {
-			btc: number;
-			eur: number;
-			sgd: number;
-			usd: number;
+			[key: string]: number;
 		};
 		low_24h: {
-			btc: number;
-			eur: number;
-			sgd: number;
-			usd: number;
+			[key: string]: number;
 		};
-		price_change_24h: number;
 		price_change_percentage_24h: number;
 		price_change_percentage_7d: number;
 		price_change_percentage_14d: number;
 		price_change_percentage_30d: number;
 		price_change_percentage_60d: number;
 		price_change_24h_in_currency: {
-			btc: number;
-			eur: number;
-			sgd: number;
-			usd: number;
+			[key: string]: number;
 		};
 		price_change_percentage_1h_in_currency: {
-			btc: number;
-			eur: number;
-			sgd: number;
-			usd: number;
+			[key: string]: number;
 		};
 		price_change_percentage_24h_in_currency: {
-			btc: number;
-			eur: number;
-			sgd: number;
-			usd: number;
+			[key: string]: number;
 		};
 	};
 	last_updated: string;

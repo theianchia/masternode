@@ -4,10 +4,11 @@ import { Card } from 'flowbite-react';
 import { FC, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import CoinGecko from 'public/coingecko.png';
+import TriangleUp from 'public/triangleUp.svg';
+import TriangleDown from 'public/triangleDown.svg';
 
 type Props = {
 	node: Node;
-	nodeValue: number;
 	coin: Coin;
 };
 
@@ -18,9 +19,23 @@ const CURRENCIES_MAP = new Map<string, string>([
 	['BTC', 'btc'],
 ]);
 
-const NodeCardSection: FC<Props> = ({ node, nodeValue, coin }) => {
+const NODECARDFIELDS = [
+	'Stake Reward',
+	'Last Stake Reward',
+	'Stake Reward Value',
+	'24 Hour Price Change',
+	'Last Price Update',
+];
+
+const NodeCardSection: FC<Props> = ({ node, coin }) => {
 	const [currentPrice, setCurrentPrice] = useState(
 		coin.market_data.current_price.usd
+	);
+	const [priceChange, setPriceChange] = useState(
+		coin.market_data.price_change_24h_in_currency.usd
+	);
+	const [priceChangePercentage, setPriceChangePercentage] = useState(
+		coin.market_data.price_change_percentage_24h_in_currency.usd
 	);
 
 	const router = useRouter();
@@ -28,23 +43,28 @@ const NodeCardSection: FC<Props> = ({ node, nodeValue, coin }) => {
 
 	useEffect(() => {
 		if (currency !== undefined && CURRENCIES_MAP.has(currency)) {
-			const currencyKey = CURRENCIES_MAP.get(currency);
-			for (const [key, value] of Object.entries(
-				coin.market_data.current_price
-			)) {
-				if (key === currencyKey) {
-					setCurrentPrice(value);
-					break;
-				}
+			const currencyKey = CURRENCIES_MAP.get(currency) as string;
+			if (coin.market_data.current_price[currencyKey] === undefined) {
+				return;
 			}
+			setCurrentPrice(coin.market_data.current_price[currencyKey]);
+			setPriceChange(
+				coin.market_data.price_change_24h_in_currency[currencyKey]
+			);
+			setPriceChangePercentage(
+				coin.market_data.price_change_percentage_24h_in_currency[currencyKey]
+			);
 		}
 	}, [router.query, coin]);
+
+	const lastRewardDate = new Date(node.lastReward.createdAt).toDateString();
+	const lastUpdatedDate = new Date(coin.last_updated).toDateString();
 
 	return (
 		<div>
 			<Card
 				href="#"
-				className="border-0 transition duration-0 hover:duration-1000 ease-in-out bg-gradient-to-br hover:bg-gradient-to-tl from-indigo-200 via-red-200 to-yellow-100"
+				className="border-0 transition ease-in-out delay-500 duration-1000 shadow-sm hover:shadow-lg bg-gradient-to-br hover:bg-gradient-to-tl from-indigo-200 via-red-200 to-yellow-100 hover:from-indigo-300 hover:via-pink-300 hover:to-yellow-100"
 			>
 				<div className="flex items-center">
 					<img
@@ -52,29 +72,75 @@ const NodeCardSection: FC<Props> = ({ node, nodeValue, coin }) => {
 						src={coin.image.large}
 						alt="Coin Logo"
 					/>
-					<h5 className="text-2xl font-bold">{node.coin}</h5>
+					<h5 className="text-xl sm:text-2xl lg:text-3xl font-bold">
+						{node.coin}
+					</h5>
 				</div>
-				<div>
-					<p className="font-normal">
-						Stake Reward: {parseFloat(node.lastReward.amount.amount)}{' '}
-						{node.lastReward.amount.coin}
-					</p>
-					<p className="font-normal">
-						$
-						{(parseFloat(node.lastReward.amount.amount) * currentPrice).toFixed(
-							2
-						)}{' '}
-						{currency || 'USD'}
+				<div className="flex items-center">
+					<img
+						src={CoinGecko.src}
+						alt="CoinGecko"
+						className="w-6 h-6 md:w-8 md:h-8 mr-2"
+					/>
+					<p className="font-medium text-sm sm:text-base lg:text-lg mr-3">
+						CoinGecko Rank #{coin.coingecko_rank}
 					</p>
 				</div>
-				<p className="font-normal">
+				<div className="flex items-center">
+					<div className="font-medium text-sm sm:text-base xl:text-lg mr-8 lg:mr-10">
+						{NODECARDFIELDS.map((field, index) => {
+							return (
+								<div key={index}>
+									<p className="mb-1">{field}</p>
+								</div>
+							);
+						})}
+					</div>
+					<div className="font-light text-sm sm:text-base xl:text-lg">
+						<p className="mb-1">
+							{parseFloat(node.lastReward.amount.amount)}{' '}
+							{node.lastReward.amount.coin}
+						</p>
+						<p className="mb-1">{lastRewardDate.substring(4)}</p>
+						<p className="mb-1">
+							$
+							{(
+								parseFloat(node.lastReward.amount.amount) * currentPrice
+							).toFixed(2)}{' '}
+							{currency || 'USD'}
+						</p>
+						<div className="flex items-center mb-1">
+							<span className="mr-5 lg:mr-8">
+								{priceChange === undefined ? '-' : `$${priceChange.toFixed(2)}`}
+							</span>
+							{priceChangePercentage === undefined ? null : (
+								<div className="flex items-center">
+									<span
+										className={`mr-1 lg:mr-2 ${
+											priceChangePercentage >= 0
+												? 'text-green-600'
+												: 'text-red-600'
+										}`}
+									>{`${priceChangePercentage.toFixed(3)}%`}</span>
+									<img
+										src={
+											priceChangePercentage >= 0
+												? TriangleUp.src
+												: TriangleDown.src
+										}
+										alt="Price Change"
+										className="w-3 h-3 md:w-4 md:h-4 lg:w-5 lg:h-5"
+									/>
+								</div>
+							)}
+						</div>
+						<p className="mb-1">{lastUpdatedDate.substring(4)}</p>
+					</div>
+				</div>
+				{/* <p className="font-normal">
 					Total Assets: ${(nodeValue * currentPrice).toFixed(2)}{' '}
 					{currency || 'USD'}
-				</p>
-				<div className="flex items-center">
-					<img src={CoinGecko.src} alt="CoinGecko" className="w-6 h-6 mr-2" />
-					<p className="font-normal">CoinGecko Rank: {coin.coingecko_rank}</p>
-				</div>
+				</p> */}
 			</Card>
 		</div>
 	);

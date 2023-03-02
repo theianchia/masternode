@@ -107,9 +107,9 @@ const HOME_PAGE_SECTIONS = [
 	{
 		darkBg: false,
 		heading: 'MasterNode',
-		subheading: 'Earn passive income by staking your crypto assets',
+		subheading: 'Passive income by staking your crypto assets',
 		imgSrc: Human.src,
-		type: 'block',
+		type: 'masthead',
 	},
 	{
 		darkBg: false,
@@ -150,10 +150,17 @@ const Home: NextPage<Props> = ({
 								alt="CakeDefi Symbol"
 							/>
 						</div>
+
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
 							{HOME_PAGE_SECTIONS.map(section => (
 								<HomePageSection key={section.heading} {...section} />
 							))}
+						</div>
+
+						<div className="mb-5">
+							<h5 className="text-2xl md:text-3xl lg:text-4xl font-semibold md:mb-2">
+								Total Assets Under Management
+							</h5>
 						</div>
 
 						<div className="flex flex-col md:flex-row md:items-center md:justify-between mb-5">
@@ -166,7 +173,7 @@ const Home: NextPage<Props> = ({
 							<Dropdown />
 						</div>
 
-						<div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mb-5">
+						<div className="grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-8 mb-5">
 							{nodes.map(node => {
 								let nodeValue;
 								let coin;
@@ -183,12 +190,7 @@ const Home: NextPage<Props> = ({
 								}
 
 								return (
-									<NodeCardSection
-										key={node.coin}
-										node={node}
-										nodeValue={nodeValue}
-										coin={coin}
-									/>
+									<NodeCardSection key={node.coin} node={node} coin={coin} />
 								);
 							})}
 						</div>

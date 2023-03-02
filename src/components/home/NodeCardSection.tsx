@@ -44,7 +44,7 @@ const NodeCardSection: FC<Props> = ({ node, nodeValue, coin }) => {
 		<div>
 			<Card
 				href="#"
-				className="border-0 bg-gradient-to-br from-indigo-200 via-red-200 to-yellow-100"
+				className="border-0 transition duration-0 hover:duration-1000 ease-in-out bg-gradient-to-br hover:bg-gradient-to-tl from-indigo-200 via-red-200 to-yellow-100"
 			>
 				<div className="flex items-center">
 					<img
@@ -52,16 +52,14 @@ const NodeCardSection: FC<Props> = ({ node, nodeValue, coin }) => {
 						src={coin.image.large}
 						alt="Coin Logo"
 					/>
-					<h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-						{node.coin}
-					</h5>
+					<h5 className="text-2xl font-bold">{node.coin}</h5>
 				</div>
 				<div>
-					<p className="font-normal text-gray-700 dark:text-gray-400">
+					<p className="font-normal">
 						Stake Reward: {parseFloat(node.lastReward.amount.amount)}{' '}
 						{node.lastReward.amount.coin}
 					</p>
-					<p className="font-normal text-gray-700 dark:text-gray-400">
+					<p className="font-normal">
 						$
 						{(parseFloat(node.lastReward.amount.amount) * currentPrice).toFixed(
 							2
@@ -69,15 +67,13 @@ const NodeCardSection: FC<Props> = ({ node, nodeValue, coin }) => {
 						{currency || 'USD'}
 					</p>
 				</div>
-				<p className="font-normal text-gray-700 dark:text-gray-400">
+				<p className="font-normal">
 					Total Assets: ${(nodeValue * currentPrice).toFixed(2)}{' '}
 					{currency || 'USD'}
 				</p>
 				<div className="flex items-center">
 					<img src={CoinGecko.src} alt="CoinGecko" className="w-6 h-6 mr-2" />
-					<p className="font-normal text-gray-700 dark:text-gray-400">
-						CoinGecko Rank: {coin.coingecko_rank}
-					</p>
+					<p className="font-normal">CoinGecko Rank: {coin.coingecko_rank}</p>
 				</div>
 			</Card>
 		</div>

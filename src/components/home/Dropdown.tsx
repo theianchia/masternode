@@ -19,13 +19,16 @@ const Dropdown = () => {
 	};
 
 	return (
-		<div>
-			<label htmlFor="currency" className="block mb-2 text-sm font-medium">
+		<div className="my-5">
+			<label
+				htmlFor="currency"
+				className="block mb-2 text-sm md:text-md lg:texl-lg font-medium"
+			>
 				Select a Currency
 			</label>
 			<select
 				id="currency"
-				className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-700 block w-full p-2.5"
+				className="bg-gray-50 border border-gray-300 text-sm md:text-md lg:texl-lg rounded-lg focus:ring-primary-700 block w-full p-2.5"
 				value={currencyKey}
 				onChange={handleChange}
 			>

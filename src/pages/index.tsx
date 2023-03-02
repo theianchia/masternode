@@ -111,6 +111,13 @@ const HOME_PAGE_SECTIONS = [
 		imgSrc: Human.src,
 		type: 'block',
 	},
+	{
+		darkBg: false,
+		heading: 'What is Staking?',
+		subheading:
+			'Staking is a process in which cryptocurrency holders volunteer to take part in validating transactions on the blockchain – in other words, checking that the ledger all adds up.',
+		type: 'block',
+	},
 ];
 
 const Home: NextPage<Props> = ({
@@ -152,14 +159,14 @@ const Home: NextPage<Props> = ({
 						<div className="flex flex-col md:flex-row md:items-center md:justify-between mb-5">
 							<HomePageSection
 								darkBg={false}
-								heading="Staking"
-								subheading="Earn passive income by staking your crypto assets"
+								heading="View All Nodes"
+								subheading="Staking rewards for all nodes"
 								type="smBlock"
 							/>
 							<Dropdown />
 						</div>
 
-						<div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+						<div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 mb-5">
 							{nodes.map(node => {
 								let nodeValue;
 								let coin;

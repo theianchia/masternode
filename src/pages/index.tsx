@@ -12,6 +12,7 @@ import NodeCardSection from '@/components/home/NodeCardSection';
 import Dropdown from '@/components/home/Dropdown';
 import CakeDefiSymbol from 'public/cakedefiSymbol.png';
 import Human from 'public/human.png';
+import TotalAssetsSection from '@/components/home/TotalAssetsSection';
 
 type Props = {
 	nodes: Node[];
@@ -52,18 +53,20 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 			continue;
 		}
 
-		if (nodesValue.has(node.coin)) {
+		if (nodesValue.has(node.lastReward.amount.coin)) {
 			const currValue = nodesValue.get(node.coin);
 			if (typeof currValue === 'number') {
 				nodesValue.set(
-					node.coin,
+					node.lastReward.amount.coin,
 					currValue + parseFloat(node.lastReward.amount.amount)
 				);
 			}
 		} else {
 			nodes.push(node);
-			nodesValue.set(node.coin, 0);
-			nodesValue.set(node.coin, parseFloat(node.lastReward.amount.amount));
+			nodesValue.set(
+				node.lastReward.amount.coin,
+				parseFloat(node.lastReward.amount.amount)
+			);
 
 			let coinId = '';
 			for (const coinNaming of allCoinsData) {
@@ -158,9 +161,7 @@ const Home: NextPage<Props> = ({
 						</div>
 
 						<div className="mb-5">
-							<h5 className="text-2xl md:text-3xl lg:text-4xl font-semibold md:mb-2">
-								Total Assets Under Management
-							</h5>
+							<TotalAssetsSection nodesValue={nodesValue} />
 						</div>
 
 						<div className="flex flex-col md:flex-row md:items-center md:justify-between mb-5">
@@ -178,8 +179,8 @@ const Home: NextPage<Props> = ({
 								let nodeValue;
 								let coin;
 
-								if (nodesValue.has(node.coin))
-									nodeValue = nodesValue.get(node.coin);
+								if (nodesValue.has(node.lastReward.amount.coin))
+									nodeValue = nodesValue.get(node.lastReward.amount.coin);
 								if (nodesCoin.has(node.coin)) coin = nodesCoin.get(node.coin);
 
 								if (

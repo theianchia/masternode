@@ -3,9 +3,9 @@ import CakeDefi from 'public/cakedefi.png';
 
 const AppFooter = () => {
 	return (
-		<footer className="p-4 bg-neutral-100 border border-t-1 border-l-0 border-r-0 border-b-0">
+		<footer className="p-4 bg-neutral-100 border-t-1">
 			<MaxWidthContainer darkBg={false}>
-				<div className="sm:flex sm:items-center sm:justify-between">
+				<div className="sm:flex sm:items-center sm:justify-between mb-2 md:mb-4">
 					<a href="https://cakedefi.com/" className="items-center mb-4 sm:mb-0">
 						<span className="self-center text-3xl font-semibold whitespace-nowrap">
 							MasterNode

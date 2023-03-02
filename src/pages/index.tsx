@@ -11,6 +11,7 @@ import axios from 'axios';
 import NodeCardSection from '@/components/home/NodeCardSection';
 import Dropdown from '@/components/home/Dropdown';
 import CakeDefiSymbol from 'public/cakedefiSymbol.png';
+import Human from 'public/human.png';
 
 type Props = {
 	nodes: Node[];
@@ -107,6 +108,7 @@ const HOME_PAGE_SECTIONS = [
 		darkBg: false,
 		heading: 'MasterNode',
 		subheading: 'Earn passive income by staking your crypto assets',
+		imgSrc: Human.src,
 		type: 'block',
 	},
 ];
@@ -141,11 +143,11 @@ const Home: NextPage<Props> = ({
 								alt="CakeDefi Symbol"
 							/>
 						</div>
-						{/* <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+						<div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
 							{HOME_PAGE_SECTIONS.map(section => (
 								<HomePageSection key={section.heading} {...section} />
 							))}
-						</div> */}
+						</div>
 
 						<div className="flex flex-col md:flex-row md:items-center md:justify-between mb-5">
 							<HomePageSection

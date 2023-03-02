@@ -42,7 +42,10 @@ const NodeCardSection: FC<Props> = ({ node, nodeValue, coin }) => {
 
 	return (
 		<div>
-			<Card href="#">
+			<Card
+				href="#"
+				className="border-0 bg-gradient-to-br from-indigo-200 via-red-200 to-yellow-100"
+			>
 				<div className="flex items-center">
 					<img
 						className="w-8 h-8 mr-3"

@@ -152,12 +152,12 @@ const NodeCardSection: FC<Props> = ({ node, coin }) => {
 					</div>
 				</div>
 			</Card>
-			<NodeModal
+			{/* <NodeModal
 				node={node}
 				coin={coin}
 				showModal={showModal}
 				onClose={handleCloseModal}
-			/>
+			/> */}
 		</div>
 	);
 };

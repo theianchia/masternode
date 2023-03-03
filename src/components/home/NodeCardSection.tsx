@@ -111,7 +111,8 @@ const NodeCardSection: FC<Props> = ({ node, coin }) => {
 						</p>
 						<div className="flex items-center mb-1">
 							<span className="mr-5 lg:mr-8">
-								{priceChange === undefined ? '-' : `$${priceChange.toFixed(2)}`}
+								{priceChange === undefined ? '-' : `$${priceChange.toFixed(2)}`}{' '}
+								{priceChange === undefined ? '' : currency || 'USD'}
 							</span>
 							{priceChangePercentage === undefined ? null : (
 								<div className="flex items-center">
@@ -137,10 +138,6 @@ const NodeCardSection: FC<Props> = ({ node, coin }) => {
 						<p className="mb-1">{lastUpdatedDate.substring(4)}</p>
 					</div>
 				</div>
-				{/* <p className="font-normal">
-					Total Assets: ${(nodeValue * currentPrice).toFixed(2)}{' '}
-					{currency || 'USD'}
-				</p> */}
 			</Card>
 		</div>
 	);

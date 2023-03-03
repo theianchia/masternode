@@ -145,7 +145,7 @@ const Home: NextPage<Props> = ({
 				<AppBanner darkBg={true} />
 				<div className="flex-grow">
 					<MaxWidthContainer darkBg={false}>
-						<div className="flex items-center mb-5">
+						<div className="flex items-center my-5">
 							<span className="font-semibold text-3xl mr-2">MasterNode</span>
 							<img
 								className="w-8 h-8"

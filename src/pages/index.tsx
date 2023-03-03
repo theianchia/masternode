@@ -32,6 +32,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 	const currency = query.currency as string;
 	const cacheKey = JSON.stringify(currency);
 	const cachedResponse = cache.get(cacheKey);
+
 	if (cachedResponse !== undefined) {
 		return { props: cachedResponse };
 	}
@@ -100,6 +101,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 	};
 
 	cache.set(cacheKey, data);
+
+	if (cacheKey === undefined) cache.set('USD', data);
 
 	return {
 		props: data,

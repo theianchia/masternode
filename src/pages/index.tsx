@@ -80,9 +80,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 				}
 			}
 
-			if (coinId === '') {
-				continue;
-			}
+			if (coinId === '') continue;
 
 			const coinResponse = await axios.get(
 				`${process.env.API_BASE_URL}/coin?id=${coinId}`
@@ -163,10 +161,6 @@ const Home: NextPage<Props> = ({
 							))}
 						</div>
 
-						<div className="mb-5">
-							<TotalAssetsSection nodesValue={nodesValue} />
-						</div>
-
 						<div className="flex flex-col md:flex-row md:items-center md:justify-between mb-5">
 							<HomePageSection
 								darkBg={false}
@@ -175,6 +169,10 @@ const Home: NextPage<Props> = ({
 								type="smBlock"
 							/>
 							<Dropdown />
+						</div>
+
+						<div className="mt-5 mb-10">
+							<TotalAssetsSection nodesValue={nodesValue} />
 						</div>
 
 						<div className="grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-8 mb-5">

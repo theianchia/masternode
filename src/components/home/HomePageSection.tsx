@@ -74,7 +74,7 @@ const HomePageSection: FC<Props> = ({
 			case 'smBlock': {
 				return (
 					<div className={`col-span-1 ${bg}`}>
-						<h5 className="text-lg md:text-xl lg:text-2xl md:mb-2 font-semibold">
+						<h5 className="text-2xl md:text-3xl lg:text-4xl font-semibold md:mb-2">
 							{heading}
 						</h5>
 						<p className="text-md md:text-lg lg:text-xl font-light">

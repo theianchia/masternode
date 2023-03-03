@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import CoinGecko from 'public/coingecko.png';
 import TriangleUp from 'public/triangleUp.svg';
 import TriangleDown from 'public/triangleDown.svg';
+import NodeModal from './NodeModal';
 
 type Props = {
 	node: Node;
@@ -38,23 +39,29 @@ const NodeCardSection: FC<Props> = ({ node, coin }) => {
 		coin.market_data.price_change_percentage_24h_in_currency.usd
 	);
 
+	const [showModal, setShowModal] = useState(false);
+	const handleCloseModal = () => setShowModal(false);
+	const handleShowModal = () => setShowModal(true);
+
 	const router = useRouter();
 	const currency = router.query.currency as string;
 
 	useEffect(() => {
+		let currencyKey;
 		if (currency !== undefined && CURRENCIES_MAP.has(currency)) {
-			const currencyKey = CURRENCIES_MAP.get(currency) as string;
-			if (coin.market_data.current_price[currencyKey] === undefined) {
-				return;
-			}
-			setCurrentPrice(coin.market_data.current_price[currencyKey]);
-			setPriceChange(
-				coin.market_data.price_change_24h_in_currency[currencyKey]
-			);
-			setPriceChangePercentage(
-				coin.market_data.price_change_percentage_24h_in_currency[currencyKey]
-			);
+			currencyKey = CURRENCIES_MAP.get(currency) as string;
+		} else {
+			currencyKey = 'USD';
 		}
+
+		if (coin.market_data.current_price[currencyKey] === undefined) {
+			return;
+		}
+		setCurrentPrice(coin.market_data.current_price[currencyKey]);
+		setPriceChange(coin.market_data.price_change_24h_in_currency[currencyKey]);
+		setPriceChangePercentage(
+			coin.market_data.price_change_percentage_24h_in_currency[currencyKey]
+		);
 	}, [router.query, coin]);
 
 	const lastRewardDate = new Date(node.lastReward.createdAt).toDateString();
@@ -63,8 +70,14 @@ const NodeCardSection: FC<Props> = ({ node, coin }) => {
 	return (
 		<div>
 			<Card
-				href="#"
-				className="border-0 transition ease-in-out delay-500 duration-1000 shadow-sm hover:shadow-lg bg-gradient-to-br hover:bg-gradient-to-tl from-indigo-200 via-red-200 to-yellow-100 hover:from-indigo-300 hover:via-pink-300 hover:to-yellow-100"
+				className="border-0 cursor-pointer shadow-sm hover:shadow-lg bg-gradient-to-br hover:bg-gradient-to-tl from-indigo-200 via-red-200 to-yellow-100 hover:from-indigo-300 hover:via-pink-300 hover:to-yellow-100"
+				onClick={() => {
+					if (showModal) {
+						handleCloseModal();
+					} else {
+						handleShowModal();
+					}
+				}}
 			>
 				<div className="flex items-center">
 					<img
@@ -98,7 +111,7 @@ const NodeCardSection: FC<Props> = ({ node, coin }) => {
 					</div>
 					<div className="font-light text-sm sm:text-base xl:text-lg">
 						<p className="mb-1">
-							{parseFloat(node.lastReward.amount.amount)}{' '}
+							{parseFloat(node.lastReward.amount.amount).toFixed(7)}{' '}
 							{node.lastReward.amount.coin}
 						</p>
 						<p className="mb-1">{lastRewardDate.substring(4)}</p>
@@ -139,6 +152,12 @@ const NodeCardSection: FC<Props> = ({ node, coin }) => {
 					</div>
 				</div>
 			</Card>
+			<NodeModal
+				node={node}
+				coin={coin}
+				showModal={showModal}
+				onClose={handleCloseModal}
+			/>
 		</div>
 	);
 };

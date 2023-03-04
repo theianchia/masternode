@@ -2,6 +2,7 @@ import { Coin } from '@/props/Coin';
 import { Node } from '@/props/Node';
 import { useRouter } from 'next/router';
 import { FC, useState, useEffect } from 'react';
+import AssetsPieChart from './AssetsPieChart';
 
 type Props = {
 	nodesValue: Map<string, number>;
@@ -43,9 +44,14 @@ const TotalAssetsFigure: FC<Props> = ({ nodesValue, nodes, coins }) => {
 
 	return (
 		<div>
-			<p className="font-bold text-4xl md:text-5xl lg:text-6xl">
-				${totalValue.toFixed(0)} {currencyKey.toUpperCase()}
-			</p>
+			<div>
+				<p className="font-bold text-4xl md:text-5xl lg:text-6xl">
+					${totalValue.toFixed(0)} {currencyKey.toUpperCase()}
+				</p>
+			</div>
+			<div className="flex justify-center mt-8 md:mt-10 lg:mt-12">
+				<AssetsPieChart />
+			</div>
 		</div>
 	);
 };

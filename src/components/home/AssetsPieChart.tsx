@@ -13,7 +13,7 @@ const AssetsPieChart: FC<Props> = ({ nodesValueInCurrency }) => {
 		labels: Array.from(nodesValueInCurrency.keys()),
 		datasets: [
 			{
-				labels: Array.from(nodesValueInCurrency.keys()),
+				labels: 'Dataset 1',
 				data: Array.from(nodesValueInCurrency.values()),
 				backgroundColor: [
 					'#4397AD',
@@ -23,9 +23,9 @@ const AssetsPieChart: FC<Props> = ({ nodesValueInCurrency }) => {
 					'#9E47F6',
 					'#7578FF',
 				],
-				borderColor: 'white',
+				borderColor: '#f5f5f5',
 				borderWidth: 3,
-			},
+			}
 		],
 	};
 

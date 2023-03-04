@@ -2,40 +2,31 @@ import { FC } from 'react';
 import { Chart, ArcElement } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 
-const AssetsPieChart: FC = () => {
-	Chart.register(ArcElement);
-	Chart.defaults.color = '#000';
+type Props = {
+	nodesValueInCurrency: Map<string, number>;
+};
 
-	const Data = [
-		{
-			id: 1,
-			year: 2016,
-			userGain: 80000,
-			userLost: 823,
-		},
-		{
-			id: 2,
-			year: 2017,
-			userGain: 45677,
-			userLost: 345,
-		},
-		{
-			id: 3,
-			year: 2018,
-			userGain: 78888,
-			userLost: 555,
-		},
-	];
+const AssetsPieChart: FC<Props> = ({ nodesValueInCurrency }) => {
+	Chart.register(ArcElement);
+
+	console.log(Array.from(nodesValueInCurrency.values()));
 
 	const chartData = {
-		labels: Data.map(data => data.year),
+		labels: Array.from(nodesValueInCurrency.keys()),
 		datasets: [
 			{
-				labels: ['ETH', 'DFI', 'DASH'],
-				data: Data.map(data => data.userGain),
-				backgroundColor: ['#9687F7', '#489FF8', '#64D9F0'],
+				labels: Array.from(nodesValueInCurrency.keys()),
+				data: Array.from(nodesValueInCurrency.values()),
+				backgroundColor: [
+					'#4397AD',
+					'#9687F7',
+					'#489FF8',
+					'#64D9F0',
+					'#9E47F6',
+					'#7578FF',
+				],
 				borderColor: 'white',
-				borderWidth: 2,
+				borderWidth: 3,
 			},
 		],
 	};

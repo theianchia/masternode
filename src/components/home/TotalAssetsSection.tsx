@@ -1,5 +1,6 @@
 import { Coin } from '@/props/Coin';
 import { Node } from '@/props/Node';
+import nFormatter from '@/utils/nFormatter';
 import { useRouter } from 'next/router';
 import { FC, useState, useEffect } from 'react';
 
@@ -43,10 +44,10 @@ const TotalAssetsSection: FC<Props> = ({ nodesValue, node, coin }) => {
 				<p>{node.lastReward.amount.coin}</p>
 				<hr className="h-0.5 border-0 bg-black my-1 md:my-2 lg:my-3" />
 				<p className="font-bold text-sm sm:text-md md:text-lg lg:text-xl text-primary-700">
-					{currentValue.toFixed(0)} {node.lastReward.amount.coin}
+					{nFormatter(currentValue, 2)} {node.lastReward.amount.coin}
 				</p>
 				<p className="font-bold text-sm sm:text-md md:text-lg lg:text-xl">
-					${(currentValue * currentPrice).toFixed(0)}{' '}
+					${nFormatter(currentValue * currentPrice, 2)}{' '}
 					{currencyKey.toUpperCase()}
 				</p>
 			</div>

@@ -155,14 +155,14 @@ const NodeModal: FC<Props> = ({
 							</p>
 						</div>
 					</Modal.Body>
-					<Modal.Footer className="text-gray-500">
+					<Modal.Footer className="text-gray-500 text-sm sm:text-base">
 						<a
 							href="https://cakedefi.com/"
 							className="flex items-center cursor-pointer"
 						>
 							<svg
 								aria-hidden="true"
-								className="w-3 h-3 mr-2"
+								className="w-3 h-3 sm:w-4 sm:h-4 mr-2"
 								focusable="false"
 								data-prefix="far"
 								data-icon="question-circle"

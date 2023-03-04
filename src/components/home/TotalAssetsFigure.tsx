@@ -24,24 +24,21 @@ const TotalAssetsFigure: FC<Props> = ({ nodesValue, nodes, coins }) => {
 	const [totalValue, setTotalValue] = useState(0);
 
 	useEffect(() => {
+		setTotalValue(0);
 		if (currency !== undefined && CURRENCIES_MAP.has(currency)) {
 			setCurrencyKey(CURRENCIES_MAP.get(currency) as string);
-			setTotalValue(0);
-			for (const node of nodes) {
-				if (
-					nodesValue.has(node.lastReward.amount.coin) &&
-					coins.has(node.coin)
-				) {
-					const coin = coins.get(node.coin) as Coin;
-					setTotalValue(
-						totalValue +
-							(nodesValue.get(node.lastReward.amount.coin) as number) *
-								coin.market_data.current_price[currencyKey]
-					);
-				}
+		}
+
+		for (const node of nodes) {
+			if (nodesValue.has(node.lastReward.amount.coin) && coins.has(node.coin)) {
+				const coin = coins.get(node.coin) as Coin;
+				setTotalValue(
+					totalValue +
+						(nodesValue.get(node.lastReward.amount.coin) as number) *
+							coin.market_data.current_price[currencyKey]
+				);
 			}
 		}
-		console.log(totalValue);
 	}, [router.query]);
 
 	return (

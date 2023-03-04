@@ -9,8 +9,6 @@ type Props = {
 const AssetsPieChart: FC<Props> = ({ nodesValueInCurrency }) => {
 	Chart.register(ArcElement);
 
-	console.log(Array.from(nodesValueInCurrency.values()));
-
 	const chartData = {
 		labels: Array.from(nodesValueInCurrency.keys()),
 		datasets: [

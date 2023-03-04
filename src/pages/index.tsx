@@ -28,7 +28,7 @@ const cache = new LRUCache<string, Props>({
 
 const NODEAMOUNT = new Map<string, number>([
 	['DASH', 1000],
-	['ETH', 10000], // Assuming 1 Ether node holds 1000 ETH
+	['ETH', 100], // Assuming 1 Ether node holds 100 ETH
 	['DFI', 20000],
 ]);
 
@@ -64,10 +64,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 		if (nodesValue.has(node.lastReward.amount.coin)) {
 			const currValue = nodesValue.get(node.lastReward.amount.coin) as number;
 			const amount = NODEAMOUNT.get(node.lastReward.amount.coin) as number;
-			nodesValue.set(
-				node.lastReward.amount.coin,
-				currValue + parseFloat(node.lastReward.amount.amount) * amount
-			);
+			nodesValue.set(node.lastReward.amount.coin, currValue + amount);
 		} else {
 			let coinId = '';
 			for (const coinNaming of allCoinsData) {
@@ -89,10 +86,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 			nodesCoin.set(node.coin, coinData);
 			nodes.push(node);
 			const amount = NODEAMOUNT.get(node.lastReward.amount.coin) as number;
-			nodesValue.set(
-				node.lastReward.amount.coin,
-				parseFloat(node.lastReward.amount.amount) * amount
-			);
+			nodesValue.set(node.lastReward.amount.coin, amount);
 		}
 	}
 

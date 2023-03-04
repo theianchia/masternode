@@ -29,13 +29,12 @@ const TotalAssetsFigure: FC<Props> = ({ nodesValue, nodes, coins }) => {
 	);
 
 	useEffect(() => {
-		setTotalValue(0);
-		setNodesValueInCurrency(new Map<string, number>());
 		if (currency !== undefined && CURRENCIES_MAP.has(currency)) {
 			setCurrencyKey(CURRENCIES_MAP.get(currency) as string);
 		}
 
 		const tmpNodeValueInCurrency = new Map<string, number>();
+		let tmpTotalValue = 0;
 
 		for (const node of nodes) {
 			if (nodesValue.has(node.lastReward.amount.coin) && coins.has(node.coin)) {
@@ -45,11 +44,12 @@ const TotalAssetsFigure: FC<Props> = ({ nodesValue, nodes, coins }) => {
 					coin.market_data.current_price[currencyKey];
 
 				tmpNodeValueInCurrency.set(node.coin, currValue);
-				setTotalValue(totalValue + currValue);
+				tmpTotalValue += currValue;
 			}
 		}
 
 		setNodesValueInCurrency(tmpNodeValueInCurrency);
+		setTotalValue(tmpTotalValue);
 	}, [router.query]);
 
 	return (

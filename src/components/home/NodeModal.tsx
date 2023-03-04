@@ -135,18 +135,24 @@ const NodeModal: FC<Props> = ({
 									<p className="mb-1">
 										{priceChange24hPercentage === undefined
 											? '-'
-											: `$${coin.market_data.high_24h[currencyKey].toFixed(2)} ${currencyKey.toUpperCase()}`}
+											: `$${coin.market_data.high_24h[currencyKey].toFixed(
+													2
+											  )} ${currencyKey.toUpperCase()}`}
 									</p>
 									<p className="mb-1">
 										{priceChange24hPercentage === undefined
 											? '-'
-											: `$${coin.market_data.low_24h[currencyKey].toFixed(2)} ${currencyKey.toUpperCase()}`}
+											: `$${coin.market_data.low_24h[currencyKey].toFixed(
+													2
+											  )} ${currencyKey.toUpperCase()}`}
 									</p>
 									<p className="mb-1">{lastUpdatedDate.substring(4)}</p>
 								</div>
 							</div>
 
-							<p className="text-base leading-relaxed">{coin.description.en}</p>
+							<p className="text-sm sm:text-base xl:text-lg leading-relaxed">
+								{coin.description.en}
+							</p>
 						</div>
 					</Modal.Body>
 					<Modal.Footer className="text-gray-500">

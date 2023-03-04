@@ -13,6 +13,7 @@ import Dropdown from '@/components/home/Dropdown';
 import CakeDefiSymbol from 'public/cakedefiSymbol.png';
 import Human from 'public/human.png';
 import TotalAssetsSection from '@/components/home/TotalAssetsSection';
+import TotalAssetsFigure from '@/components/home/TotalAssetsFigure';
 
 type Props = {
 	nodes: Node[];
@@ -180,8 +181,15 @@ const Home: NextPage<Props> = ({
 							<h5 className="text-lg md:text-xl lg:text-2xl font-semibold mb-3 md:mb-5">
 								Total Assets Under Management
 							</h5>
+							<div className="flex justify-center mb-10 md:mb-14 lg:mb-16">
+								<TotalAssetsFigure
+									nodesValue={nodesValue}
+									nodes={nodes}
+									coins={nodesCoin}
+								/>
+							</div>
 							<div>
-								<div className="grid grid-cols-3 place-items-center gap-5 md:gap-8">
+								<div className="grid grid-cols-3 place-items-center items-start gap-5 md:gap-8">
 									{nodes.map(node => {
 										let nodeValue;
 										let coin;

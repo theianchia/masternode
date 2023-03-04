@@ -70,7 +70,7 @@ const NodeCardSection: FC<Props> = ({ node, coin }) => {
 	return (
 		<div>
 			<Card
-				className="border-0 cursor-pointer shadow-sm hover:shadow-lg bg-gradient-to-br hover:bg-gradient-to-tl from-indigo-200 via-red-200 to-yellow-100 hover:from-indigo-300 hover:via-pink-300 hover:to-yellow-100"
+				className="border-0 cursor-pointer shadow-sm hover:shadow-lg bg-gradient-to-br hover:bg-gradient-to-tl from-indigo-200 via-red-200 to-yellow-100 hover:from-indigo-300 hover:via-pink-300 hover:to-amber-200"
 				onClick={() => {
 					if (showModal) {
 						handleCloseModal();
@@ -152,12 +152,12 @@ const NodeCardSection: FC<Props> = ({ node, coin }) => {
 					</div>
 				</div>
 			</Card>
-			{/* <NodeModal
+			<NodeModal
 				node={node}
 				coin={coin}
 				showModal={showModal}
 				onClose={handleCloseModal}
-			/> */}
+			/>
 		</div>
 	);
 };

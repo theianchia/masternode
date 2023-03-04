@@ -11,12 +11,8 @@ const AppFooter = () => {
 							MasterNode
 						</span>
 						<div className="flex items-center">
-							<span className="text-sm">powered by</span>
-							<img
-								src={CakeDefi.src}
-								className="h-12 mr-3"
-								alt="Flowbite Logo"
-							/>
+							<span className="text-sm mr-2">powered by</span>
+							<img src={CakeDefi.src} className="h-4" alt="Flowbite Logo" />
 						</div>
 					</a>
 					<ul className="flex flex-wrap items-center mb-6 text-sm text-gray-500 sm:mb-0">

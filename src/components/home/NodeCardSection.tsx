@@ -45,18 +45,12 @@ const NodeCardSection: FC<Props> = ({ node, coin }) => {
 
 	const router = useRouter();
 	const currency = router.query.currency as string;
+	let currencyKey = 'usd';
+	if (currency !== undefined && CURRENCIES_MAP.has(currency)) {
+		currencyKey = CURRENCIES_MAP.get(currency) as string;
+	}
 
 	useEffect(() => {
-		let currencyKey;
-		if (currency !== undefined && CURRENCIES_MAP.has(currency)) {
-			currencyKey = CURRENCIES_MAP.get(currency) as string;
-		} else {
-			currencyKey = 'USD';
-		}
-
-		if (coin.market_data.current_price[currencyKey] === undefined) {
-			return;
-		}
 		setCurrentPrice(coin.market_data.current_price[currencyKey]);
 		setPriceChange(coin.market_data.price_change_24h_in_currency[currencyKey]);
 		setPriceChangePercentage(
@@ -70,7 +64,7 @@ const NodeCardSection: FC<Props> = ({ node, coin }) => {
 	return (
 		<div>
 			<Card
-				className="border-0 cursor-pointer shadow-sm hover:shadow-lg bg-gradient-to-br hover:bg-gradient-to-tl from-indigo-200 via-red-200 to-yellow-100 hover:from-indigo-300 hover:via-pink-300 hover:to-amber-200"
+				className="border-0 cursor-pointer shadow-sm hover:shadow-lg bg-gradient-to-br hover:bg-gradient-to-tl from-indigo-200 via-red-200 to-amber-100 hover:from-indigo-300 hover:via-pink-200 hover:to-amber-100"
 				onClick={() => {
 					if (showModal) {
 						handleCloseModal();
@@ -120,12 +114,12 @@ const NodeCardSection: FC<Props> = ({ node, coin }) => {
 							{(
 								parseFloat(node.lastReward.amount.amount) * currentPrice
 							).toFixed(2)}{' '}
-							{currency || 'USD'}
+							{currencyKey.toUpperCase()}
 						</p>
 						<div className="flex items-center mb-1">
 							<span className="mr-5 lg:mr-8">
 								{priceChange === undefined ? '-' : `$${priceChange.toFixed(2)}`}{' '}
-								{priceChange === undefined ? '' : currency || 'USD'}
+								{priceChange === undefined ? '' : currencyKey.toUpperCase()}
 							</span>
 							{priceChangePercentage === undefined ? null : (
 								<div className="flex items-center">
@@ -157,6 +151,7 @@ const NodeCardSection: FC<Props> = ({ node, coin }) => {
 				coin={coin}
 				showModal={showModal}
 				onClose={handleCloseModal}
+				currencyKey={currencyKey}
 			/>
 		</div>
 	);

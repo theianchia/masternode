@@ -1,27 +1,56 @@
-import { FC } from 'react';
+import { Coin } from '@/props/Coin';
+import { Node } from '@/props/Node';
+import { useRouter } from 'next/router';
+import { FC, useState, useEffect } from 'react';
 
 type Props = {
 	nodesValue: Map<string, number>;
+	node: Node;
+	coin: Coin;
 };
 
-const TotalAssetsSection: FC<Props> = ({ nodesValue }) => {
+const CURRENCIES_MAP = new Map<string, string>([
+	['USD', 'usd'],
+	['EUR', 'eur'],
+	['SGD', 'sgd'],
+	['BTC', 'btc'],
+]);
+
+const TotalAssetsSection: FC<Props> = ({ nodesValue, node, coin }) => {
+	const [currentPrice, setCurrentPrice] = useState(
+		coin.market_data.current_price.usd
+	);
+
+	const router = useRouter();
+	const currency = router.query.currency as string;
+	let currencyKey = 'usd';
+	if (currency !== undefined && CURRENCIES_MAP.has(currency)) {
+		currencyKey = CURRENCIES_MAP.get(currency) as string;
+	}
+
+	useEffect(() => {
+		setCurrentPrice(coin.market_data.current_price[currencyKey]);
+	}, [router.query, coin]);
+
+	let currentValue = 0;
+	if (nodesValue.has(node.lastReward.amount.coin)) {
+		currentValue = nodesValue.get(node.lastReward.amount.coin) as number;
+	}
+
 	return (
-		<>
-			<h5 className="text-lg md:text-xl lg:text-2xl font-semibold mb-3 md:mb-5">
-				Total Assets Under Management
-			</h5>
-			<div className="flex justify-around">
-				{Array.from(nodesValue).map(([key, value]) => (
-					<div key={key} className="text-lg md:text-xl lg:text-2xl">
-						<p>{key}</p>
-						<hr className="h-0.5 border-0 bg-black my-1 md:my-2 lg:my-3" />
-						<p className="font-bold text-sm md:text-md lg:text-xl">
-							{value.toFixed(3)} {key}
-						</p>
-					</div>
-				))}
+		<div className="flex">
+			<div className="text-lg md:text-xl lg:text-2xl">
+				<p>{node.lastReward.amount.coin}</p>
+				<hr className="h-0.5 border-0 bg-black my-1 md:my-2 lg:my-3" />
+				<p className="font-bold text-sm sm:text-md md:text-lg lg:text-xl text-primary-700">
+					{currentValue.toFixed(0)} {node.lastReward.amount.coin}
+				</p>
+				<p className="font-bold text-sm sm:text-md md:text-lg lg:text-xl">
+					${(currentValue * currentPrice).toFixed(0)}{' '}
+					{currencyKey.toUpperCase()}
+				</p>
 			</div>
-		</>
+		</div>
 	);
 };
 

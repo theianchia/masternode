@@ -25,6 +25,12 @@ const cache = new LRUCache<string, Props>({
 	maxAge: 1000 * 60 * 60,
 });
 
+const NODEAMOUNT = new Map<string, number>([
+	['DASH', 1000],
+	['ETH', 10000], // Assuming 1 Ether node holds 1000 ETH
+	['DFI', 20000],
+]);
+
 export const getServerSideProps: GetServerSideProps<Props> = async (
 	context: GetServerSidePropsContext
 ) => {
@@ -55,20 +61,13 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 		}
 
 		if (nodesValue.has(node.lastReward.amount.coin)) {
-			const currValue = nodesValue.get(node.coin);
-			if (typeof currValue === 'number') {
-				nodesValue.set(
-					node.lastReward.amount.coin,
-					currValue + parseFloat(node.lastReward.amount.amount)
-				);
-			}
-		} else {
-			nodes.push(node);
+			const currValue = nodesValue.get(node.lastReward.amount.coin) as number;
+			const amount = NODEAMOUNT.get(node.lastReward.amount.coin) as number;
 			nodesValue.set(
 				node.lastReward.amount.coin,
-				parseFloat(node.lastReward.amount.amount)
+				currValue + parseFloat(node.lastReward.amount.amount) * amount
 			);
-
+		} else {
 			let coinId = '';
 			for (const coinNaming of allCoinsData) {
 				if (
@@ -87,6 +86,12 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 			);
 			const coinData = coinResponse.data;
 			nodesCoin.set(node.coin, coinData);
+			nodes.push(node);
+			const amount = NODEAMOUNT.get(node.lastReward.amount.coin) as number;
+			nodesValue.set(
+				node.lastReward.amount.coin,
+				parseFloat(node.lastReward.amount.amount) * amount
+			);
 		}
 	}
 
@@ -172,7 +177,38 @@ const Home: NextPage<Props> = ({
 						</div>
 
 						<div className="mt-5 mb-10">
-							<TotalAssetsSection nodesValue={nodesValue} />
+							<h5 className="text-lg md:text-xl lg:text-2xl font-semibold mb-3 md:mb-5">
+								Total Assets Under Management
+							</h5>
+							<div>
+								<div className="grid grid-cols-3 place-items-center gap-5 md:gap-8">
+									{nodes.map(node => {
+										let nodeValue;
+										let coin;
+
+										if (nodesValue.has(node.lastReward.amount.coin))
+											nodeValue = nodesValue.get(node.lastReward.amount.coin);
+										if (nodesCoin.has(node.coin))
+											coin = nodesCoin.get(node.coin);
+
+										if (
+											typeof nodeValue === 'undefined' ||
+											typeof coin === 'undefined'
+										) {
+											return null;
+										}
+
+										return (
+											<TotalAssetsSection
+												key={node.coin}
+												nodesValue={nodesValue}
+												node={node}
+												coin={coin}
+											/>
+										);
+									})}
+								</div>
+							</div>
 						</div>
 
 						<div className="grid grid-cols-1 lg:grid-cols-2 gap-5 md:gap-8 mb-5">

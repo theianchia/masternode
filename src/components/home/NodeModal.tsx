@@ -5,6 +5,7 @@ import { Coin } from '@/props/Coin';
 import CoinGecko from 'public/coingecko.png';
 import TriangleUp from 'public/triangleUp.svg';
 import TriangleDown from 'public/triangleDown.svg';
+import PriceChangePercentageLineChart from './PriceChangePercentageLineChart';
 
 type Props = {
 	node: Node;
@@ -148,6 +149,10 @@ const NodeModal: FC<Props> = ({
 									</p>
 									<p className="mb-1">{lastUpdatedDate.substring(4)}</p>
 								</div>
+							</div>
+
+							<div className="flex justify-center mt-8 md:mt-10 lg:mt-12">
+								<PriceChangePercentageLineChart coin={coin} />
 							</div>
 
 							<p className="text-sm sm:text-base xl:text-lg leading-relaxed">

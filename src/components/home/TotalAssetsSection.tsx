@@ -44,10 +44,10 @@ const TotalAssetsSection: FC<Props> = ({ nodesValue, node, coin }) => {
 				<p>{node.lastReward.amount.coin}</p>
 				<hr className="h-0.5 border-0 bg-black my-1 md:my-2 lg:my-3" />
 				<p className="font-bold text-sm sm:text-md md:text-lg lg:text-xl text-primary-700">
-					{nFormatter(currentValue, 2)} {node.lastReward.amount.coin}
+					{nFormatter(currentValue, 1)} {node.lastReward.amount.coin}
 				</p>
 				<p className="font-bold text-sm sm:text-md md:text-lg lg:text-xl">
-					${nFormatter(currentValue * currentPrice, 2)}{' '}
+					${nFormatter(currentValue * currentPrice, 1)}{' '}
 					{currencyKey.toUpperCase()}
 				</p>
 			</div>

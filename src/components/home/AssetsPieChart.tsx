@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Chart, ArcElement } from 'chart.js';
+import { Chart, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 
 type Props = {
@@ -7,7 +7,7 @@ type Props = {
 };
 
 const AssetsPieChart: FC<Props> = ({ nodesValueInCurrency }) => {
-	Chart.register(ArcElement);
+	Chart.register(ArcElement, Tooltip, Legend);
 
 	const chartData = {
 		labels: Array.from(nodesValueInCurrency.keys()),
@@ -24,8 +24,18 @@ const AssetsPieChart: FC<Props> = ({ nodesValueInCurrency }) => {
 					'#7578FF',
 				],
 				borderColor: '#f5f5f5',
+				fontColor: '#000',
 				borderWidth: 3,
-			}
+				legend: {
+					display: true,
+					position: 'bottom',
+					labels: {
+						fontColor: '#000',
+						fontSize: 14,
+						padding: 20,
+					},
+				},
+			},
 		],
 	};
 

@@ -41,11 +41,16 @@ const PriceChangePercentageLineChart: FC<Props> = ({ coin }) => {
 		labels: LINEAXISLABELS,
 		datasets: [
 			{
-				labels: 'Percentage Change in Price',
+				label: 'Percentage Change in Price',
 				data: data,
 				borderColor: '#9E47F6',
 				borderWidth: 2,
 				fill: false,
+			},
+			{
+				label: 'Baseline',
+				borderDash: [15, 5],
+				data: [0, 0, 0, 0, 0],
 			},
 		],
 	};

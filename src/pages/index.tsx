@@ -8,12 +8,12 @@ import Head from 'next/head';
 import { GetServerSideProps, GetServerSidePropsContext, NextPage } from 'next';
 import LRUCache from 'lru-cache';
 import axios from 'axios';
-import NodeCardSection from '@/components/home/NodeCardSection';
+import NodeCardSection from '@/components/home/nodeCard/NodeCardSection';
 import Dropdown from '@/components/home/Dropdown';
 import CakeDefiSymbol from 'public/cakedefiSymbol.png';
 import Human from 'public/human.png';
-import TotalAssetsSection from '@/components/home/TotalAssetsSection';
-import TotalAssetsFigure from '@/components/home/TotalAssetsFigure';
+import TotalAssetsSection from '@/components/home/totalAssets/TotalAssetsSection';
+import TotalAssetsFigure from '@/components/home/totalAssets/TotalAssetsFigure';
 
 type Props = {
 	nodes: Node[];

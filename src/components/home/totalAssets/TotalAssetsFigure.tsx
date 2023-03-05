@@ -22,16 +22,17 @@ const TotalAssetsFigure: FC<Props> = ({ nodesValue, nodes, coins }) => {
 	const router = useRouter();
 	const currency = router.query.currency as string;
 
-	const [currencyKey, setCurrencyKey] = useState('usd');
 	const [totalValue, setTotalValue] = useState(0);
 	const [nodesValueInCurrency, setNodesValueInCurrency] = useState(
 		new Map<string, number>()
 	);
 
+	let currencyKey = 'usd';
+	if (currency !== undefined && CURRENCIES_MAP.has(currency)) {
+		currencyKey = CURRENCIES_MAP.get(currency) as string;
+	}
+
 	useEffect(() => {
-		if (currency !== undefined && CURRENCIES_MAP.has(currency)) {
-			setCurrencyKey(CURRENCIES_MAP.get(currency) as string);
-		}
 
 		const tmpNodeValueInCurrency = new Map<string, number>();
 		let tmpTotalValue = 0;

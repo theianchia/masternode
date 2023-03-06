@@ -4,7 +4,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <img src="assets/logo.jpg" alt="Logo" width="400">
+  <img src="assets/logo.png" alt="Logo" width="300">
   <h3 align="center">MasterNode</h3>
   <p align="center">
     Cake DeFi JavaScript React Exercise - Masternode assets under management
@@ -83,6 +83,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Features
 
 ### Total Assets Under Management
+
 Users are able to view at a single glance
 * total assets' value in a selected currency such as `USD`, `SGD`, `EUR`, `BTC`
 * individual asset's value in a selected currency
@@ -91,12 +92,27 @@ Users are able to view at a single glance
   * `1 Ether Node holds 100 ETH (arbitrary)`
 * proportion of individual asset to total assets in a selected currency on a pie chart
 
+<img src="assets/totalAssets.png" alt="Total Assets" width="400">
+
+> Total Assets' value in selcted currency
+
 ### Staking Rewards
 * View latest staking rewards for a node, and its coin value attributes
 * Track price percentage change of coin at certain time intervals on a line chart
 
+<img src="assets/nodeCards.png" alt="Node Cards" width="400">
+
+> Node Card
+
+<img src="assets/nodeModal.png" alt="Node Modal" width="400">
+
+> Dismissable Node Modal on clicking Node Card
+
 ### Mobile Responsiveness
 
+<img src="assets/mobile.gif" alt="Mobile Video">
+
+> Shown on iPhone 14 in Safari browser
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

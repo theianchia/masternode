@@ -112,7 +112,7 @@ Users are able to view at a single glance
 
 <img src="assets/mobile.gif" alt="Mobile Video"  width="250">
 
-> Shown on iPhone SE Dimension in Chrome browser
+> Shown on iPhone 14 Pro Max Dimension in Safari
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

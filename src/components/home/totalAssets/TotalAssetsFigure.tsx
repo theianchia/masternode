@@ -3,7 +3,7 @@ import { Node } from '@/props/Node';
 import nFormatter from '@/utils/nFormatter';
 import { useRouter } from 'next/router';
 import { FC, useState, useEffect } from 'react';
-import AssetsPieChart from './AssetsPieChart';
+import PieChart from '../../chart/PieChart';
 import { CURRENCIES_MAP } from '@/utils/constants';
 
 type Props = {
@@ -54,7 +54,7 @@ const TotalAssetsFigure: FC<Props> = ({ nodesValue, nodes, coins }) => {
 				</p>
 			</div>
 			<div className="flex justify-center mt-8 md:mt-10 lg:mt-12">
-				<AssetsPieChart nodesValueInCurrency={nodesValueInCurrency} />
+				<PieChart nodesValueInCurrency={nodesValueInCurrency} currency={currencyKey.toUpperCase()} />
 			</div>
 		</div>
 	);

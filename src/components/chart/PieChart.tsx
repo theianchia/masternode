@@ -4,16 +4,17 @@ import { Pie } from 'react-chartjs-2';
 
 type Props = {
 	nodesValueInCurrency: Map<string, number>;
+	currency: string;
 };
 
-const AssetsPieChart: FC<Props> = ({ nodesValueInCurrency }) => {
+const PieChart: FC<Props> = ({ nodesValueInCurrency, currency }) => {
 	Chart.register(ArcElement, Tooltip, Legend);
 
 	const chartData = {
 		labels: Array.from(nodesValueInCurrency.keys()),
 		datasets: [
 			{
-				labels: 'Dataset 1',
+				label: `${currency} Value`,
 				data: Array.from(nodesValueInCurrency.values()),
 				backgroundColor: [
 					'#4397AD',
@@ -46,4 +47,4 @@ const AssetsPieChart: FC<Props> = ({ nodesValueInCurrency }) => {
 	);
 };
 
-export default AssetsPieChart;
+export default PieChart;

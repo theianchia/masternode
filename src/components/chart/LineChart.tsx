@@ -18,7 +18,7 @@ type Props = {
 
 const LINEAXISLABELS = ['1d', '7d', '14d', '30d', '60d'];
 
-const PriceChangePercentageLineChart: FC<Props> = ({ coin }) => {
+const LineChart: FC<Props> = ({ coin }) => {
 	ChartJS.register(
 		CategoryScale,
 		LinearScale,
@@ -62,4 +62,4 @@ const PriceChangePercentageLineChart: FC<Props> = ({ coin }) => {
 	);
 };
 
-export default PriceChangePercentageLineChart;
+export default LineChart;

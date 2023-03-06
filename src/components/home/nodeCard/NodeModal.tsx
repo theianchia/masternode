@@ -53,6 +53,7 @@ const NodeModal: FC<Props> = ({
 					dismissible={true}
 					show={showModal}
 					onClose={onClose}
+					position="top-center"
 					className="bg-opacity-80 h-screen"
 				>
 					<Modal.Header>

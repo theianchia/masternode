@@ -8,18 +8,12 @@ import TriangleUp from 'public/triangleUp.svg';
 import TriangleDown from 'public/triangleDown.svg';
 import NodeModal from './NodeModal';
 import nFormatter from '@/utils/nFormatter';
+import { CURRENCIES_MAP } from '@/utils/constants';
 
 type Props = {
 	node: Node;
 	coin: Coin;
 };
-
-const CURRENCIES_MAP = new Map<string, string>([
-	['USD', 'usd'],
-	['EUR', 'eur'],
-	['SGD', 'sgd'],
-	['BTC', 'btc'],
-]);
 
 const NODECARDFIELDS = [
 	'Stake Reward',

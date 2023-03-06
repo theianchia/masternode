@@ -1,21 +1,15 @@
+import { FC, useState, useEffect } from 'react';
 import { Coin } from '@/props/Coin';
 import { Node } from '@/props/Node';
-import nFormatter from '@/utils/nFormatter';
 import { useRouter } from 'next/router';
-import { FC, useState, useEffect } from 'react';
+import nFormatter from '@/utils/nFormatter';
+import { CURRENCIES_MAP } from '@/utils/constants';
 
 type Props = {
 	nodesValue: Map<string, number>;
 	node: Node;
 	coin: Coin;
 };
-
-const CURRENCIES_MAP = new Map<string, string>([
-	['USD', 'usd'],
-	['EUR', 'eur'],
-	['SGD', 'sgd'],
-	['BTC', 'btc'],
-]);
 
 const TotalAssetsSection: FC<Props> = ({ nodesValue, node, coin }) => {
 	const [currentPrice, setCurrentPrice] = useState(

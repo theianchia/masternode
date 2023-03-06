@@ -4,19 +4,13 @@ import nFormatter from '@/utils/nFormatter';
 import { useRouter } from 'next/router';
 import { FC, useState, useEffect } from 'react';
 import AssetsPieChart from './AssetsPieChart';
+import { CURRENCIES_MAP } from '@/utils/constants';
 
 type Props = {
 	nodesValue: Map<string, number>;
 	nodes: Node[];
 	coins: Map<string, Coin>;
 };
-
-const CURRENCIES_MAP = new Map<string, string>([
-	['USD', 'usd'],
-	['EUR', 'eur'],
-	['SGD', 'sgd'],
-	['BTC', 'btc'],
-]);
 
 const TotalAssetsFigure: FC<Props> = ({ nodesValue, nodes, coins }) => {
 	const router = useRouter();

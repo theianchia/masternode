@@ -110,7 +110,7 @@ Users are able to view at a single glance
 
 ### Mobile Responsiveness
 
-<img src="assets/mobile.gif" alt="Mobile Video">
+<img src="assets/mobile.gif" alt="Mobile Video"  width="250">
 
 > Shown on iPhone SE Dimension in Chrome browser
 

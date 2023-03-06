@@ -7,6 +7,7 @@ import CoinGecko from 'public/coingecko.png';
 import TriangleUp from 'public/triangleUp.svg';
 import TriangleDown from 'public/triangleDown.svg';
 import NodeModal from './NodeModal';
+import nFormatter from '@/utils/nFormatter';
 
 type Props = {
 	node: Node;
@@ -22,10 +23,10 @@ const CURRENCIES_MAP = new Map<string, string>([
 
 const NODECARDFIELDS = [
 	'Stake Reward',
-	'Last Stake Reward',
+	'Last Reward',
 	'Reward Value',
-	'24H Price Change',
-	'Last Price Update',
+	'24H Price',
+	'Last Updated',
 ];
 
 const NodeCardSection: FC<Props> = ({ node, coin }) => {
@@ -105,7 +106,7 @@ const NodeCardSection: FC<Props> = ({ node, coin }) => {
 					</div>
 					<div className="font-light text-sm sm:text-base xl:text-lg">
 						<p className="mb-1">
-							{parseFloat(node.lastReward.amount.amount).toFixed(7)}{' '}
+							{nFormatter(parseFloat(node.lastReward.amount.amount), 6)}{' '}
 							{node.lastReward.amount.coin}
 						</p>
 						<p className="mb-1">{lastRewardDate.substring(4)}</p>

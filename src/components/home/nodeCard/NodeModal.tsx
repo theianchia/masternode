@@ -17,12 +17,12 @@ type Props = {
 
 const NODEMODALFIELDS = [
 	'Stake Reward',
-	'Last Stake Reward',
+	'Last Reward',
 	'Reward Value',
-	'24H Price Change',
+	'24H Price',
 	'24H High',
 	'24H Low',
-	'Last Price Update',
+	'Last Updated',
 ];
 
 const NodeModal: FC<Props> = ({

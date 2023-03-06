@@ -33,7 +33,6 @@ const TotalAssetsFigure: FC<Props> = ({ nodesValue, nodes, coins }) => {
 	}
 
 	useEffect(() => {
-
 		const tmpNodeValueInCurrency = new Map<string, number>();
 		let tmpTotalValue = 0;
 

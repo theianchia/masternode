@@ -112,7 +112,7 @@ Users are able to view at a single glance
 
 <img src="assets/mobile.gif" alt="Mobile Video">
 
-> Shown on iPhone 14 in Safari browser
+> Shown on iPhone SE Dimension in Chrome browser
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

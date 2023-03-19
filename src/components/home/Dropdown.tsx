@@ -15,7 +15,7 @@ const Dropdown = () => {
 
 	const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		setCurrencyKey(e.target.value);
-		router.push(`?currency=${e.target.value}`);
+		router.push(`?currency=${e.target.value}`, null, { shallow: true });
 	};
 
 	return (

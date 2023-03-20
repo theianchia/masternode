@@ -50,6 +50,9 @@ const AppFooter = () => {
 					</a>
 					. All Rights Reserved.
 				</span>
+				<span className="block text-sm text-gray-500 sm:text-center">
+					Built by Ian Chia
+				</span>
 			</MaxWidthContainer>
 		</footer>
 	);

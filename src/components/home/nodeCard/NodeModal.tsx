@@ -6,6 +6,7 @@ import CoinGecko from 'public/coingecko.png';
 import TriangleUp from 'public/triangleUp.svg';
 import TriangleDown from 'public/triangleDown.svg';
 import LineChart from '../../chart/LineChart';
+import ChartButtonGroup from './ChartButtonGroup';
 
 type Props = {
 	node: Node;
@@ -33,6 +34,7 @@ const NodeModal: FC<Props> = ({
 	currencyKey,
 }) => {
 	const [domLoaded, setDomLoaded] = useState(false);
+	const [selectedChart, setSelectedChart] = useState('Line');
 
 	useEffect(() => {
 		setDomLoaded(true);
@@ -45,6 +47,10 @@ const NodeModal: FC<Props> = ({
 		coin.market_data.price_change_percentage_24h_in_currency[currencyKey];
 	const lastRewardDate = new Date(node.lastReward.createdAt).toDateString();
 	const lastUpdatedDate = new Date(coin.last_updated).toDateString();
+
+	const handleChartButtonClick = (chart: string) => {
+		setSelectedChart(chart);
+	};
 
 	return (
 		<>
@@ -150,6 +156,13 @@ const NodeModal: FC<Props> = ({
 									</p>
 									<p className="mb-1">{lastUpdatedDate.substring(4)}</p>
 								</div>
+							</div>
+
+							<div className="flex justify-center w-full">
+								<ChartButtonGroup
+									selected={selectedChart}
+									handleChartButtonClick={handleChartButtonClick}
+								/>
 							</div>
 
 							<div className="flex justify-center mt-8 md:mt-10 lg:mt-12">

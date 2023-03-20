@@ -54,7 +54,10 @@ const TotalAssetsFigure: FC<Props> = ({ nodesValue, nodes, coins }) => {
 				</p>
 			</div>
 			<div className="flex justify-center mt-8 md:mt-10 lg:mt-12">
-				<PieChart nodesValueInCurrency={nodesValueInCurrency} currency={currencyKey.toUpperCase()} />
+				<PieChart
+					nodesValueInCurrency={nodesValueInCurrency}
+					currency={currencyKey.toUpperCase()}
+				/>
 			</div>
 		</div>
 	);

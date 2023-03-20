@@ -18,7 +18,7 @@ type Props = {
 
 const LINEAXISLABELS = ['1d', '7d', '14d', '30d', '60d'];
 
-const LineChart: FC<Props> = ({ coin }) => {
+const BarChart: FC<Props> = ({ coin }) => {
 	ChartJS.register(
 		CategoryScale,
 		LinearScale,
@@ -75,4 +75,4 @@ const LineChart: FC<Props> = ({ coin }) => {
 	);
 };
 
-export default LineChart;
+export default BarChart;

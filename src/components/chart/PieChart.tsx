@@ -11,7 +11,7 @@ const PieChart: FC<Props> = ({ nodesValueInCurrency, currency }) => {
 	Chart.register(ArcElement, Tooltip, Legend);
 
 	const options = {
-		maintainAspectRatio : false,
+		maintainAspectRatio: false,
 		plugins: {
 			legend: {
 				position: 'top' as const,
@@ -21,7 +21,7 @@ const PieChart: FC<Props> = ({ nodesValueInCurrency, currency }) => {
 				text: 'Proportion of Assets in Value',
 			},
 		},
-	}
+	};
 
 	const chartData = {
 		labels: Array.from(nodesValueInCurrency.keys()),

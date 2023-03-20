@@ -104,15 +104,16 @@ Users are able to view at a single glance
 
 > Node Card
 
-<img src="assets/nodeModal.png" alt="Node Modal" width="400">
+<img src="assets/nodeModalLine.png" alt="Node Modal" width="400">
+<img src="assets/nodeModalBar.png" alt="Node Modal" width="400">
 
-> Dismissable Node Modal on clicking Node Card
+> Dismissable Node Modal on clicking Node Card that provides Line and Bar Chart visualisation
 
 ### Mobile Responsiveness
 
 <img src="assets/mobile.gif" alt="Mobile Video"  width="250">
 
-> Shown on iPhone 14 Pro Max Dimension in Safari
+> Shown on iPhone SE Dimension in Chrome Browser
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

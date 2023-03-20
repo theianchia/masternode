@@ -10,6 +10,19 @@ type Props = {
 const PieChart: FC<Props> = ({ nodesValueInCurrency, currency }) => {
 	Chart.register(ArcElement, Tooltip, Legend);
 
+	const options = {
+		maintainAspectRatio : false,
+		plugins: {
+			legend: {
+				position: 'top' as const,
+			},
+			title: {
+				display: true,
+				text: 'Proportion of Assets in Value',
+			},
+		},
+	}
+
 	const chartData = {
 		labels: Array.from(nodesValueInCurrency.keys()),
 		datasets: [
@@ -41,8 +54,8 @@ const PieChart: FC<Props> = ({ nodesValueInCurrency, currency }) => {
 	};
 
 	return (
-		<div className="w-56 md:w-64 lg:w-72 xl:w-80">
-			<Pie data={chartData} />
+		<div className="flex w-72 md:w-80 lg:w-96 h-72 md:h-80 lg:h-96">
+			<Pie data={chartData} options={options} />
 		</div>
 	);
 };

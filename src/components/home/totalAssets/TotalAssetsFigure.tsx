@@ -48,7 +48,7 @@ const TotalAssetsFigure: FC<Props> = ({ nodesValue, nodes, coins }) => {
 
 	return (
 		<div>
-			<div>
+			<div className="flex justify-center">
 				<p className="font-bold text-4xl md:text-5xl lg:text-6xl">
 					${nFormatter(totalValue, 2)} {currencyKey.toUpperCase()}
 				</p>

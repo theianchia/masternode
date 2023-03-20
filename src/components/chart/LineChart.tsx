@@ -51,9 +51,7 @@ const LineChart: FC<Props> = ({ coin }) => {
 		],
 	};
 
-	return (
-		<Line data={chartData} />
-	);
+	return <Line data={chartData} options={options} />;
 };
 
 export default LineChart;

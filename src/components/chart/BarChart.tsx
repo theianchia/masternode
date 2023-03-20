@@ -46,9 +46,7 @@ const BarChart: FC<Props> = ({ coin }) => {
 		],
 	};
 
-	return (
-		<Bar data={chartData} />
-	);
+	return <Bar data={chartData} options={options} />;
 };
 
 export default BarChart;

@@ -37,6 +37,19 @@ const LineChart: FC<Props> = ({ coin }) => {
 		coin.market_data.price_change_percentage_60d,
 	];
 
+	const options = {
+		maintainAspectRatio : false,
+		plugins: {
+			legend: {
+				position: 'top' as const,
+			},
+			title: {
+				display: true,
+				text: `Percentage change in ${coin.name} price`,
+			},
+		},
+	}
+
 	const chartData = {
 		labels: LINEAXISLABELS,
 		datasets: [
@@ -56,8 +69,8 @@ const LineChart: FC<Props> = ({ coin }) => {
 	};
 
 	return (
-		<div className="w-64 md:w-72 lg:w-80 xl:w-96">
-			<Line data={chartData} />
+		<div className="flex h-72 lg:h-80 xl:h-96 w-72 lg:w-80 xl:w-96">
+			<Line data={chartData} options={options} />
 		</div>
 	);
 };

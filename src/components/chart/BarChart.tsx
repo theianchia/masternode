@@ -1,15 +1,6 @@
 import { FC } from 'react';
-import {
-	Chart as ChartJS,
-	CategoryScale,
-	LinearScale,
-	PointElement,
-	LineElement,
-	Title,
-	Tooltip,
-	Legend,
-} from 'chart.js';
-import { Line } from 'react-chartjs-2';
+import { Chart, registerables } from 'chart.js';
+import { Bar } from 'react-chartjs-2';
 import { Coin } from '@/props/Coin';
 
 type Props = {
@@ -19,15 +10,7 @@ type Props = {
 const LINEAXISLABELS = ['1d', '7d', '14d', '30d', '60d'];
 
 const BarChart: FC<Props> = ({ coin }) => {
-	ChartJS.register(
-		CategoryScale,
-		LinearScale,
-		PointElement,
-		LineElement,
-		Title,
-		Tooltip,
-		Legend
-	);
+	Chart.register(...registerables);
 
 	const data = [
 		coin.market_data.price_change_percentage_24h,
@@ -60,17 +43,12 @@ const BarChart: FC<Props> = ({ coin }) => {
 				borderWidth: 2,
 				fill: false,
 			},
-			{
-				label: 'Baseline',
-				borderDash: [15, 5],
-				data: [0, 0, 0, 0, 0],
-			},
 		],
 	};
 
 	return (
 		<div className="flex h-72 lg:h-80 xl:h-96 w-72 lg:w-80 xl:w-96">
-			<Line data={chartData} options={options} />
+			<Bar data={chartData} options={options} />
 		</div>
 	);
 };

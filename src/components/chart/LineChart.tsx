@@ -1,14 +1,5 @@
 import { FC } from 'react';
-import {
-	Chart as ChartJS,
-	CategoryScale,
-	LinearScale,
-	PointElement,
-	LineElement,
-	Title,
-	Tooltip,
-	Legend,
-} from 'chart.js';
+import { Chart, registerables } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { Coin } from '@/props/Coin';
 
@@ -19,15 +10,7 @@ type Props = {
 const LINEAXISLABELS = ['1d', '7d', '14d', '30d', '60d'];
 
 const LineChart: FC<Props> = ({ coin }) => {
-	ChartJS.register(
-		CategoryScale,
-		LinearScale,
-		PointElement,
-		LineElement,
-		Title,
-		Tooltip,
-		Legend
-	);
+	Chart.register(...registerables);
 
 	const data = [
 		coin.market_data.price_change_percentage_24h,

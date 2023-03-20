@@ -6,6 +6,7 @@ import CoinGecko from 'public/coingecko.png';
 import TriangleUp from 'public/triangleUp.svg';
 import TriangleDown from 'public/triangleDown.svg';
 import LineChart from '../../chart/LineChart';
+import BarChart from '../../chart/BarChart';
 import ChartButtonGroup from './ChartButtonGroup';
 
 type Props = {
@@ -14,6 +15,11 @@ type Props = {
 	showModal: boolean;
 	onClose: () => void;
 	currencyKey: string;
+};
+
+type ChartProps = {
+	coin: Coin;
+	selectedChart: string;
 };
 
 const NODEMODALFIELDS = [
@@ -25,6 +31,17 @@ const NODEMODALFIELDS = [
 	'24H Low',
 	'Last Updated',
 ];
+
+const Chart: FC<ChartProps> = ({ coin, selectedChart }) => {
+	switch (selectedChart) {
+		case 'Line':
+			return <LineChart coin={coin} />;
+		case 'Bar':
+			return <BarChart coin={coin} />;
+		default:
+			return <LineChart coin={coin} />;
+	}
+};
 
 const NodeModal: FC<Props> = ({
 	node,
@@ -166,7 +183,7 @@ const NodeModal: FC<Props> = ({
 							</div>
 
 							<div className="flex justify-center mt-8 md:mt-10 lg:mt-12">
-								<LineChart coin={coin} />
+								<Chart coin={coin} selectedChart={selectedChart} />
 							</div>
 
 							<p className="text-sm sm:text-base xl:text-lg leading-relaxed">

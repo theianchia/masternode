@@ -61,7 +61,6 @@ const ChartButtonIcon: FC<ButtonIconProps> = ({ type }) => {
 
 const ChartButtonGroup: FC<Props> = ({ selected, handleChartButtonClick }) => {
 	const handleClick = (e: React.MouseEvent<HTMLElement>) => {
-		console.log((e.target as HTMLInputElement).value);
 		handleChartButtonClick((e.target as HTMLInputElement).value);
 	};
 

@@ -183,7 +183,9 @@ const NodeModal: FC<Props> = ({
 							</div>
 
 							<div className="flex justify-center mt-8 md:mt-10 lg:mt-12">
-								<Chart coin={coin} selectedChart={selectedChart} />
+								<div className="flex h-72 lg:h-80 xl:h-96 w-72 lg:w-80 xl:w-96">
+									<Chart coin={coin} selectedChart={selectedChart} />
+								</div>
 							</div>
 
 							<p className="text-sm sm:text-base xl:text-lg leading-relaxed">

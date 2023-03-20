@@ -47,9 +47,7 @@ const BarChart: FC<Props> = ({ coin }) => {
 	};
 
 	return (
-		<div className="flex h-72 lg:h-80 xl:h-96 w-72 lg:w-80 xl:w-96">
-			<Bar data={chartData} options={options} />
-		</div>
+		<Bar data={chartData} />
 	);
 };
 

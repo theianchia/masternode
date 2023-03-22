@@ -59,7 +59,7 @@ const NodeCardSection: FC<Props> = ({ node, coin }) => {
 	return (
 		<div>
 			<Card
-				className="border-0 cursor-pointer shadow-sm hover:shadow-lg bg-gradient-to-br hover:bg-gradient-to-tl from-indigo-200 via-red-200 to-amber-100 hover:from-indigo-300 hover:via-pink-200 hover:to-amber-100"
+				className="border-0 cursor-pointer shadow-sm hover:shadow-lg bg-gradient-to-br hover:bg-gradient-to-tl from-indigo-200 via-red-200 to-amber-100 hover:from-indigo-300 hover:via-pink-200 hover:to-amber-100 hover:scale-105 hover:-translate-y-1 transition ease-in-out delay-150 duration-300"
 				onClick={() => {
 					if (showModal) {
 						handleCloseModal();

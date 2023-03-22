@@ -76,8 +76,8 @@ const ChartButtonGroup: FC<Props> = ({ selected, handleChartButtonClick }) => {
 						className={`
                 ${
 									selected == type
-										? 'bg-primary-500 text-white border-primary-500 hover:bg-primary-700 hover:border-primary-700'
-										: 'text-black hover:text-primary-500'
+										? 'bg-primary-500 text-white border-primary-500 hover:bg-primary-700 hover:border-primary-700 hover:shadow-lg'
+										: 'text-black border-black hover:text-primary-500 hover:border-primary-500 hover:shadow-lg'
 								} 
                 ${index == 0 ? 'rounded-l-lg border' : ''}
                 ${
@@ -85,7 +85,7 @@ const ChartButtonGroup: FC<Props> = ({ selected, handleChartButtonClick }) => {
 										? 'rounded-r-lg border-t border-b border-r'
 										: ''
 								}
-                inline-flex items-center px-4 py-2 text-sm sm:text-base xl:text-lg font-medium border-black focus:z-10 focus:ring-primary-700`}
+                inline-flex items-center px-4 py-2 text-sm sm:text-base xl:text-lg font-medium border focus:z-10 focus:ring-primary-700`}
 					>
 						<ChartButtonIcon type={type} />
 						{type}

@@ -21,6 +21,9 @@ module.exports = {
 					DEFAULT: '#f5f5f5',
 				},
 			},
+			minHeight: {
+				'3/4': '75vh',
+			},
 		},
 	},
 	plugins: [require('flowbite/plugin')],

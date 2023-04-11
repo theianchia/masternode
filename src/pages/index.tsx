@@ -170,11 +170,11 @@ const Home: NextPage<Props> = ({
 							/>
 						</div>
 
-						<div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5 min-h-screen flex items-center">
+						<div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5 min-h-3/4 flex items-center">
 							<HomePageSection {...MASTHEAD} />
 						</div>
 
-						<div className="grid grid-cols-1 gap-5 mb-5 min-h-screen flex items-center">
+						<div className="grid grid-cols-1 gap-5 mb-5 flex items-center">
 							<div>
 								{HOME_PAGE_SECTIONS.map(section => (
 									<HomePageSection key={section.heading} {...section} />

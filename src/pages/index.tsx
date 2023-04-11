@@ -107,19 +107,34 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 	};
 };
 
+const MASTHEAD = {
+	darkBg: false,
+	heading: 'MasterNode',
+	subheading: 'Passive income by staking your crypto assets',
+	imgSrc: Human.src,
+	type: 'masthead',
+};
+
 const HOME_PAGE_SECTIONS = [
-	{
-		darkBg: false,
-		heading: 'MasterNode',
-		subheading: 'Passive income by staking your crypto assets',
-		imgSrc: Human.src,
-		type: 'masthead',
-	},
 	{
 		darkBg: false,
 		heading: 'What is Staking?',
 		subheading:
 			'Staking is a process in which cryptocurrency holders volunteer to take part in validating transactions on the blockchain – in other words, checking that the ledger all adds up.',
+		type: 'block',
+	},
+	{
+		darkBg: false,
+		heading: "What's in it for me?",
+		subheading:
+			'Staking rewards are the incentives that blockchain networks offer to users who stake their tokens. These rewards can vary depending on the network and the amount of tokens staked. For example, the Ethereum network currently offers a staking reward of around 6% per year for users who stake their ETH.',
+		type: 'block',
+	},
+	{
+		darkBg: false,
+		heading: 'What is MasterNode?',
+		subheading:
+			'MasterNode makes viewing total assets managed and staking rewards from CakeDefi combined with latest coin rates from CoinGecko easy and possible.',
 		type: 'block',
 	},
 ];
@@ -155,10 +170,16 @@ const Home: NextPage<Props> = ({
 							/>
 						</div>
 
-						<div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
-							{HOME_PAGE_SECTIONS.map(section => (
-								<HomePageSection key={section.heading} {...section} />
-							))}
+						<div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5 min-h-screen flex items-center">
+							<HomePageSection {...MASTHEAD} />
+						</div>
+
+						<div className="grid grid-cols-1 gap-5 mb-5 min-h-screen flex items-center">
+							<div>
+								{HOME_PAGE_SECTIONS.map(section => (
+									<HomePageSection key={section.heading} {...section} />
+								))}
+							</div>
 						</div>
 
 						<div className="flex flex-col md:flex-row md:items-center md:justify-between mb-5">

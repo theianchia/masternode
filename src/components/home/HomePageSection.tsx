@@ -24,7 +24,7 @@ const HomePageSection: FC<Props> = ({
 					<div className={`col-span-1 md:col-span-2 my-5 ${bg}`}>
 						<div className="flex flex-row items-center md:text-end justify-between md:justify-around">
 							<div>
-								<h5 className="text-2xl md:text-3xl lg:text-4xl font-semibold md:mb-2">
+								<h5 className="text-3xl md:text-4xl lg:text-5xl font-semibold md:mb-2">
 									{heading}
 								</h5>
 								<p className="text-md md:text-lg lg:text-xl font-light">
@@ -47,7 +47,9 @@ const HomePageSection: FC<Props> = ({
 
 			case 'block': {
 				return (
-					<div className={`col-span-1 md:col-span-2 my-5 ${bg}`}>
+					<div
+						className={`col-span-1 md:col-span-2 mb-16 md:mb-20 lg:mb-24 ${bg}`}
+					>
 						<div className="flex flex-row items-center justify-between">
 							<div>
 								<h5 className="text-2xl md:text-3xl lg:text-4xl font-semibold md:mb-2">

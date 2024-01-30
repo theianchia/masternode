@@ -27,7 +27,7 @@ const HomePageSection: FC<Props> = ({
 								<h5 className="text-3xl md:text-4xl lg:text-5xl font-semibold md:mb-2">
 									{heading}
 								</h5>
-								<p className="text-md md:text-lg lg:text-xl font-light">
+								<p className="text-md md:text-lg lg:text-xl italic text-gray-700">
 									{subheading}
 								</p>
 							</div>
@@ -55,7 +55,7 @@ const HomePageSection: FC<Props> = ({
 								<h5 className="text-2xl md:text-3xl lg:text-4xl font-semibold md:mb-2">
 									{heading}
 								</h5>
-								<p className="text-md md:text-lg lg:text-xl font-light">
+								<p className="text-md md:text-lg lg:text-xl hover:italic text-gray-700 transition ease-in-out delay-150 duration-300">
 									{subheading}
 								</p>
 							</div>
@@ -79,7 +79,7 @@ const HomePageSection: FC<Props> = ({
 						<h5 className="text-2xl md:text-3xl lg:text-4xl font-semibold md:mb-2">
 							{heading}
 						</h5>
-						<p className="text-md md:text-lg lg:text-xl font-light">
+						<p className="text-md md:text-lg lg:text-xl text-gray-700">
 							{subheading}
 						</p>
 					</div>
